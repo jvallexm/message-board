@@ -34,6 +34,9 @@ export default class App extends React.Component{
     socket.on("send thread",(data)=>{
       this.pushThread(data.board,data.thread,false);
     });
+    socket.on("send pop",(data)=>{
+      this.popThread(data.board,data.thread,false);
+    });
   }
   getCurrentBoard()
   {
@@ -50,27 +53,36 @@ export default class App extends React.Component{
     }
     console.log("after return");
   }
-  popThread(thread)
+  popThread(board, thread, isNew)
   {
     let boards = this.state.boards;
     console.log("popping thread.. " + thread._id);
     for(let i=0;i<boards.length;i++)
     {
-      if(boards[i]._id == this.state.currentBoardName)
+      if(boards[i]._id == board)
       {
-        var threads = []
+        var threads = [];
         for(let j=0;j<boards[i].threads.length;j++)
         {
           if(boards[i].threads[j]._id != thread._id)
-            threads.push(boards[i].threads[j])
+            threads.push(boards[i].threads[j]);
         }
         boards[i].threads = threads;
         console.log("new threads");
         console.log(boards[i].threads);
       }
     }
+    if(isNew)
+    {
+      console.log("sending pop request to server..");
+      socket.emit("pop thread",{
+        board: board,
+        thread: thread
+      });
+    }  
     this.setState({boards: boards});
-    this.getCurrentBoard();
+    if(board == this.state.currentBoardName);
+      this.getCurrentBoard();
   }
   pushThread(board,thread,isNew)
   {
@@ -138,7 +150,8 @@ export default class App extends React.Component{
                       updateThread={this.updateThread}
                       lockedOut={this.state.lockedOut}
                       lock={()=>this.setState({lockedOut: true})}
-                      popThread={this.popThread}/>
+                      popThread={this.popThread}
+                      currentBoard={this.state.currentBoardName}/>
          </div>
         : "Loading..."} 
       </div>  

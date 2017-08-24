@@ -16778,6 +16778,9 @@ var App = function (_React$Component) {
       socket.on("send thread", function (data) {
         _this2.pushThread(data.board, data.thread, false);
       });
+      socket.on("send pop", function (data) {
+        _this2.popThread(data.board, data.thread, false);
+      });
     }
   }, {
     key: 'getCurrentBoard',
@@ -16795,11 +16798,11 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'popThread',
-    value: function popThread(thread) {
+    value: function popThread(board, thread, isNew) {
       var boards = this.state.boards;
       console.log("popping thread.. " + thread._id);
       for (var i = 0; i < boards.length; i++) {
-        if (boards[i]._id == this.state.currentBoardName) {
+        if (boards[i]._id == board) {
           var threads = [];
           for (var j = 0; j < boards[i].threads.length; j++) {
             if (boards[i].threads[j]._id != thread._id) threads.push(boards[i].threads[j]);
@@ -16809,7 +16812,15 @@ var App = function (_React$Component) {
           console.log(boards[i].threads);
         }
       }
+      if (isNew) {
+        console.log("sending pop request to server..");
+        socket.emit("pop thread", {
+          board: board,
+          thread: thread
+        });
+      }
       this.setState({ boards: boards });
+      if (board == this.state.currentBoardName) ;
       this.getCurrentBoard();
     }
   }, {
@@ -16883,7 +16894,8 @@ var App = function (_React$Component) {
             lock: function lock() {
               return _this3.setState({ lockedOut: true });
             },
-            popThread: this.popThread })
+            popThread: this.popThread,
+            currentBoard: this.state.currentBoardName })
         ) : "Loading..."
       );
     }
@@ -17037,6 +17049,7 @@ var ShownBoard = function (_React$Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__board_Thread_js__["a" /* default */], { key: "thread" + i,
               thread: d,
               popThread: _this2.props.popThread,
+              currentBoard: _this2.props.currentBoard,
               replyToggle: _this2.replyToggle,
               deleteToggle: _this2.deleteToggle,
               replying: _this2.state.replying,
@@ -17272,9 +17285,6 @@ var Thread = function (_React$Component) {
   }
 
   _createClass(Thread, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {}
-  }, {
     key: 'getReplies',
     value: function getReplies() {
       var replies = this.props.thread.replies.length;
@@ -17317,7 +17327,7 @@ var Thread = function (_React$Component) {
       console.log("trying to delete post.. " + root);
       if (root == 0) {
         this.props.clearAll();
-        this.props.popThread(deletingTo);
+        this.props.popThread(this.props.currentBoard, deletingTo, true);
       }
     }
   }, {

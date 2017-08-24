@@ -18,9 +18,6 @@ export default class Thread extends React.Component{
     this.parseDate = this.parseDate.bind(this);
     this.pushReply = this.pushReply.bind(this);
   }
-  componentWillMount()
-  {
-  }
   getReplies()
   {
     let replies = this.props.thread.replies.length;
@@ -75,7 +72,7 @@ export default class Thread extends React.Component{
     if(root==0)
     {
       this.props.clearAll();
-      this.props.popThread(deletingTo);
+      this.props.popThread(this.props.currentBoard, deletingTo, true);
     }
   }
   render()

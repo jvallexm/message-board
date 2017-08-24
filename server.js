@@ -77,10 +77,29 @@ io.on('connection', (socket) => {
              {
                  var pushTo = db.collection(data.board);
                  var pushOne = () =>{
+                     console.log("sending new thread to database");
                      pushTo.insert(data.thread);
                      socket.broadcast.emit("send thread", data);
                  };
                  pushOne(db,()=>{db.close();});
+             }
+       });     
+   });
+   
+   //Pops deleted threads from database
+   socket.on("pop thread",(data)=>{
+        MongoClient.connect(url, (err,db)=>{
+             if(err)
+               console.log(err);
+             else
+             {
+                 var removeFrom = db.collection(data.board);
+                 var removeOne = () =>{
+                     console.log("removing thread from database");
+                     removeFrom.remove({_id: data.thread._id});
+                     socket.broadcast.emit("send pop", data);
+                 };
+                 removeOne(db,()=>{db.close();});
              }
        });     
    });

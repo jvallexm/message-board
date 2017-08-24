@@ -64,6 +64,7 @@ export default class ShownBoard extends React.Component{
               <Thread key={"thread" + i} 
                       thread={d} 
                       popThread={this.props.popThread}
+                      currentBoard={this.props.currentBoard}
                       replyToggle = {this.replyToggle}
                       deleteToggle = {this.deleteToggle}
                       replying = {this.state.replying}
