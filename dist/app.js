@@ -17016,7 +17016,8 @@ var NavBar = function NavBar(props) {
               { key: d.name,
                 onClick: function onClick() {
                   return props.switchBoard(d._id);
-                } },
+                },
+                className: 'pointer' },
               d.name,
               i < props.boards.length - 1 ? " / " : ""
             );

@@ -63,10 +63,12 @@ body{
 .red
 {
   color: #E63946;
+  cursor: pointer; cursor: hand;
 }
 .blue
 {
   color: blue;
+  cursor: pointer; cursor: hand;
 }
 .replies{
   padding: 3px;
@@ -148,4 +150,10 @@ textarea
    white-space: -o-pre-wrap;   /* Opera 7 */    
    word-wrap: break-word;      /* IE */
    min-height: 200px;
+}
+.pointer{
+  cursor: pointer; cursor: hand;
+}
+.btn{
+  cursor: pointer; cursor: hand;
 }
