@@ -15,12 +15,13 @@ export default class App extends React.Component{
       gray: false,
       lockedOut: false,
       lockedOutIp: "",
-      getBoards: ["b","c"],
+      getBoards: ["b","c","p","d","m"],
       replying: false,
       replyingTo: undefined,
       deleting: false,
       deletingTo: undefined,
-    }
+      admin: false
+    };
     this.getCurrentBoard = this.getCurrentBoard.bind(this);
     this.pushThread = this.pushThread.bind(this);
     this.popThread = this.popThread.bind(this);
@@ -227,7 +228,12 @@ const NavBar = (props) => {
            </div>
            <div className="col-lg-8 middle-text">
               <div>
-              {props.boards.map((d,i)=>
+              {props.boards.sort((a,b)=>{
+               if(a.name < b.name)
+                 return -1;
+               else 
+                 return 1;
+              }).map((d,i)=>
                 <span key={d.name}
                       onClick={()=>props.switchBoard(d._id)}>
                    {d.name}{i<props.boards.length-1 ? " / " : ""}

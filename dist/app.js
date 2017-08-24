@@ -16758,11 +16758,12 @@ var App = function (_React$Component) {
       gray: false,
       lockedOut: false,
       lockedOutIp: "",
-      getBoards: ["b", "c"],
+      getBoards: ["b", "c", "p", "d", "m"],
       replying: false,
       replyingTo: undefined,
       deleting: false,
-      deletingTo: undefined
+      deletingTo: undefined,
+      admin: false
     };
     _this.getCurrentBoard = _this.getCurrentBoard.bind(_this);
     _this.pushThread = _this.pushThread.bind(_this);
@@ -16989,7 +16990,9 @@ var NavBar = function NavBar(props) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           null,
-          props.boards.map(function (d, i) {
+          props.boards.sort(function (a, b) {
+            if (a.name < b.name) return -1;else return 1;
+          }).map(function (d, i) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'span',
               { key: d.name,

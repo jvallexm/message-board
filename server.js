@@ -74,6 +74,12 @@ io.on('connection', (socket) => {
                   newBoard.name = "Random";
                 if(board == "c")  
                   newBoard.name = "Compliments";
+                if(board == "d")
+                  newBoard.name = "DnD";
+                if(board == "m")
+                  newBoard.name = "Memes";
+                if(board == "p")
+                  newBoard.name = "Pop Punk";
                 thisBoard.find({},{})
                          .toArray((err,result)=>{
                              if(err)

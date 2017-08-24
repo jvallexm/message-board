@@ -116,7 +116,7 @@ export default class NewThread extends React.Component{
                   onClick={this.handleSubmit}>
             Submit
           </button>  
-          <button className="thread-head board-head btn from-top cancel"
+          <button className="lil-space thread-head board-head btn from-top cancel"
                   onClick={this.props.cancel}>
             Cancel
           </button>     
