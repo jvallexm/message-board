@@ -17,8 +17,6 @@ const io = require('socket.io')(server);
 
 var url = process.env.MONGO_URL;
 
-io.on('connection', (socket) => {
-
    //Adds a new thread
    var pushThread = (data, func) =>{
             MongoClient.connect(url, (err,db)=>{
@@ -124,7 +122,11 @@ io.on('connection', (socket) => {
          }
       });     
    };
-   
+
+io.on('connection', (socket) => {
+
+   app.use(helmet());
+
    console.log("new connection!");
    
    //Sends clients all boards when they connect

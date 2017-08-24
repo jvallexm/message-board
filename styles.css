@@ -157,3 +157,9 @@ textarea
 .btn{
   cursor: pointer; cursor: hand;
 }
+.gray{
+  color: gray;
+}
+.post-from-top{
+  margin-top: 40px;
+}

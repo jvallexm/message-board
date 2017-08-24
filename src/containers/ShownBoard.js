@@ -19,7 +19,7 @@ export default class ShownBoard extends React.Component{
     <div className="text-center container-fluid">  
         <div className="board">
             <center>
-            <div className="thread-head board-head">
+            <div className="thread-head board-head post-from-top">
               <h1>{this.props.board.name}</h1>
             </div>  
             </center>

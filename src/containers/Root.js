@@ -33,6 +33,11 @@ export default class App extends React.Component{
   }
   componentWillMount()
   {
+    var urlHere = window.location.href.split('/');
+    if(urlHere.indexOf('board')!=-1)
+    {
+      this.setState({currentBoardName: urlHere[urlHere.length-1]});
+    }
     socket.emit('need boards', {boards: this.state.getBoards});
     socket.on("send boards",(data)=>{
       console.log("getting boards from server..");
@@ -193,7 +198,8 @@ export default class App extends React.Component{
             </div>                
           </div> : ""}  
         <NavBar boards={this.state.boards}
-                switchBoard={this.switchBoard}/>
+                switchBoard={this.switchBoard}
+                board={this.state.currentBoardName} />
         {this.state.boards.length > 0 && this.state.currentBoard != undefined ?
           <div id='app' className="text-center container-fluid">     
           <ShownBoard board={this.state.currentBoard}
@@ -235,8 +241,8 @@ const NavBar = (props) => {
                  return 1;
               }).map((d,i)=>
                 <span key={d.name}
-                      onClick={()=>props.switchBoard(d._id)}
-                      className="pointer">
+                      onClick={d._id==props.board ? "" : ()=>props.switchBoard(d._id)}
+                      className={d._id==props.board ? "gray" : "pointer"}>
                    {d.name}{i<props.boards.length-1 ? " / " : ""}
                 </span>       
               )}

@@ -16799,6 +16799,10 @@ var App = function (_React$Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
+      var urlHere = window.location.href.split('/');
+      if (urlHere.indexOf('board') != -1) {
+        this.setState({ currentBoardName: urlHere[urlHere.length - 1] });
+      }
       socket.emit('need boards', { boards: this.state.getBoards });
       socket.on("send boards", function (data) {
         console.log("getting boards from server..");
@@ -16950,7 +16954,8 @@ var App = function (_React$Component) {
           )
         ) : "",
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(NavBar, { boards: this.state.boards,
-          switchBoard: this.switchBoard }),
+          switchBoard: this.switchBoard,
+          board: this.state.currentBoardName }),
         this.state.boards.length > 0 && this.state.currentBoard != undefined ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { id: 'app', className: 'text-center container-fluid' },
@@ -17014,10 +17019,10 @@ var NavBar = function NavBar(props) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'span',
               { key: d.name,
-                onClick: function onClick() {
+                onClick: d._id == props.board ? "" : function () {
                   return props.switchBoard(d._id);
                 },
-                className: 'pointer' },
+                className: d._id == props.board ? "gray" : "pointer" },
               d.name,
               i < props.boards.length - 1 ? " / " : ""
             );
@@ -17097,7 +17102,7 @@ var ShownBoard = function (_React$Component) {
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
-              { className: 'thread-head board-head' },
+              { className: 'thread-head board-head post-from-top' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'h1',
                 null,
@@ -17414,13 +17419,13 @@ var Thread = function (_React$Component) {
         var _thread = this.props.thread;
         for (var _i = 0; _i < _thread.replies.length; _i++) {
           var _newReplies = [];
-          console.log("old replies");
-          console.log(_thread.replies[_i].replies);
-          console.log("deletingTo _id: " + deletingTo._id);
+          //console.log("old replies");
+          //console.log(thread.replies[i].replies);
+          //console.log("deletingTo _id: " + deletingTo._id);
           for (var j = 0; j < _thread.replies[_i].replies.length; j++) {
             if (_thread.replies[_i].replies[j]._id != deletingTo._id) _newReplies.push(_thread.replies[_i].replies[j]);
           }
-          console.log("New replies: " + _newReplies.length);
+          //console.log("New replies: " + newReplies.length)
           _thread.replies[_i].replies = _newReplies;
         }
         this.props.clearAll();
