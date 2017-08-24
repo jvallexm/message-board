@@ -16647,24 +16647,6 @@ var NewThread = function (_React$Component) {
             { className: "row" },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
-              { className: "col-md-3 col-left" },
-              "Image (Optional)"
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "col-md-9 col-right" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { className: "width-100",
-                placeholder: "Image URL (optional)",
-                name: "attachment",
-                onChange: this.handleChange,
-                value: this.state.thread.attachment })
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "row" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
               { className: "col-md-3 col-left middle-text" },
               "Post"
             ),
@@ -16676,6 +16658,24 @@ var NewThread = function (_React$Component) {
                 name: "text",
                 onChange: this.handleChange,
                 value: this.state.thread.text })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "row" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "col-md-3 col-left" },
+              "Image (Optional)"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "col-md-9 col-right" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { className: "width-100",
+                placeholder: "Image URL (optional)",
+                name: "attachment",
+                onChange: this.handleChange,
+                value: this.state.thread.attachment })
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -17414,13 +17414,17 @@ var Thread = function (_React$Component) {
         var _thread = this.props.thread;
         for (var _i = 0; _i < _thread.replies.length; _i++) {
           var _newReplies = [];
-          for (var j = 0; _thread.replies[_i].length; _i++) {
+          console.log("old replies");
+          console.log(_thread.replies[_i].replies);
+          console.log("deletingTo _id: " + deletingTo._id);
+          for (var j = 0; j < _thread.replies[_i].replies.length; j++) {
             if (_thread.replies[_i].replies[j]._id != deletingTo._id) _newReplies.push(_thread.replies[_i].replies[j]);
           }
+          console.log("New replies: " + _newReplies.length);
           _thread.replies[_i].replies = _newReplies;
         }
         this.props.clearAll();
-        this.props.updateThread(this.props.currentBoard, _thread, true);
+        this.props.updateThread(this.props.currentBoard, _thread, true, false);
       }
     }
   }, {

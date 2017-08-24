@@ -88,18 +88,6 @@ export default class NewThread extends React.Component{
              </div>  
           </div>
           <div className="row">
-             <div className="col-md-3 col-left">
-                Image (Optional)
-             </div>
-             <div className="col-md-9 col-right">
-                <input className="width-100" 
-                       placeholder={"Image URL (optional)"}
-                       name={"attachment"}
-                       onChange={this.handleChange}
-                       value={this.state.thread.attachment}/>
-             </div>  
-          </div>
-          <div className="row">
              <div className="col-md-3 col-left middle-text">
                 Post
              </div>
@@ -109,6 +97,18 @@ export default class NewThread extends React.Component{
                        name={"text"}
                        onChange={this.handleChange}
                        value={this.state.thread.text} />
+             </div>  
+          </div>
+          <div className="row">
+             <div className="col-md-3 col-left">
+                Image (Optional)
+             </div>
+             <div className="col-md-9 col-right">
+                <input className="width-100" 
+                       placeholder={"Image URL (optional)"}
+                       name={"attachment"}
+                       onChange={this.handleChange}
+                       value={this.state.thread.attachment}/>
              </div>  
           </div>
           <div className="row">
