@@ -11194,7 +11194,10 @@ var HandleDelete = function (_React$Component) {
       if (this.state.input == this.props.toDelete.delete_password) {
         console.log("pass");
         this.props.deletePost();
-      } else console.log("fail");
+      } else {
+        console.log("fail");
+        this.setState({ message: "Wrong password :(" });
+      }
     }
   }, {
     key: "render",
@@ -16760,6 +16763,8 @@ var App = function (_React$Component) {
     _this.getCurrentBoard = _this.getCurrentBoard.bind(_this);
     _this.pushThread = _this.pushThread.bind(_this);
     _this.popThread = _this.popThread.bind(_this);
+    _this.setBoard = _this.setBoard.bind(_this);
+    _this.switchBoard = _this.switchBoard.bind(_this);
     _this.updateThread = _this.updateThread.bind(_this);
     return _this;
   }
@@ -16788,10 +16793,12 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'getCurrentBoard',
-    value: function getCurrentBoard() {
+    value: function getCurrentBoard(board) {
       console.log("getting current board");
+      var whichBoard = this.state.currentBoardName;
+      if (board != undefined) whichBoard = board;
       for (var i = 0; i < this.state.boards.length; i++) {
-        if (this.state.boards[i]._id == this.state.currentBoardName) {
+        if (this.state.boards[i]._id == whichBoard) {
           var currentBoard = this.state.boards[i];
           console.log(currentBoard.threads);
           this.setState({ currentBoard: currentBoard });
@@ -16849,6 +16856,17 @@ var App = function (_React$Component) {
       if (board == this.state.currentBoardName) this.getCurrentBoard();
     }
   }, {
+    key: 'setBoard',
+    value: function setBoard(board) {
+      this.setState({ currentBoardName: board });
+    }
+  }, {
+    key: 'switchBoard',
+    value: function switchBoard(board) {
+      this.setBoard(board);
+      this.getCurrentBoard(board);
+    }
+  }, {
     key: 'updateThread',
     value: function updateThread(board, thread, isNew) {
       var boards = this.state.boards;
@@ -16858,6 +16876,7 @@ var App = function (_React$Component) {
       }
       for (var j = 0; j < boards[index].threads.length; j++) {
         if (thread._id == boards[index].threads[j]._id) {
+          thread.bumped_on = Math.round(new Date().getTime() / 1000);
           boards[index].threads[j] = thread;
         }
       }
@@ -16891,7 +16910,8 @@ var App = function (_React$Component) {
               board: this.state.currentBoardName }) : ""
           )
         ) : "",
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(NavBar, { boards: this.state.boards }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(NavBar, { boards: this.state.boards,
+          switchBoard: this.switchBoard }),
         this.state.boards.length > 0 && this.state.currentBoard != undefined ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { id: 'app', className: 'text-center container-fluid' },
@@ -16939,7 +16959,10 @@ var NavBar = function NavBar(props) {
           props.boards.map(function (d, i) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'span',
-              { key: d.name },
+              { key: d.name,
+                onClick: function onClick() {
+                  return props.switchBoard(d._id);
+                } },
               d.name,
               i < props.boards.length - 1 ? " / " : ""
             );

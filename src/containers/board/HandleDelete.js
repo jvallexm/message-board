@@ -25,7 +25,10 @@ export default class HandleDelete extends React.Component{
       this.props.deletePost();      
     } 
     else
+    {
       console.log("fail");
+      this.setState({message: "Wrong password :("});
+    }  
   }
   render()
   {

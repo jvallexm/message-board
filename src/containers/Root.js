@@ -20,6 +20,8 @@ export default class App extends React.Component{
     this.getCurrentBoard = this.getCurrentBoard.bind(this);
     this.pushThread = this.pushThread.bind(this);
     this.popThread = this.popThread.bind(this);
+    this.setBoard = this.setBoard.bind(this);
+    this.switchBoard = this.switchBoard.bind(this);
     this.updateThread = this.updateThread.bind(this);
   }
   componentWillMount()
@@ -41,12 +43,15 @@ export default class App extends React.Component{
       this.updateThread(data.board,data.thread,false);
     });
   }
-  getCurrentBoard()
+  getCurrentBoard(board)
   {
     console.log("getting current board");
+    let whichBoard = this.state.currentBoardName;
+    if(board != undefined)
+      whichBoard = board;
     for(let i=0;i<this.state.boards.length;i++)
     {
-      if(this.state.boards[i]._id == this.state.currentBoardName)
+      if(this.state.boards[i]._id == whichBoard)
       {
         let currentBoard = this.state.boards[i];
         console.log(currentBoard.threads);
@@ -111,6 +116,15 @@ export default class App extends React.Component{
     if(board == this.state.currentBoardName)
       this.getCurrentBoard();
   }
+  setBoard(board)
+  {
+    this.setState({currentBoardName: board});
+  }
+  switchBoard(board)
+  {
+    this.setBoard(board);
+    this.getCurrentBoard(board);
+  }
   updateThread(board,thread,isNew)
   {
     let boards = this.state.boards;
@@ -124,6 +138,7 @@ export default class App extends React.Component{
     {
       if(thread._id == boards[index].threads[j]._id)
       {
+        thread.bumped_on = Math.round((new Date()).getTime() / 1000);
         boards[index].threads[j] = thread;
       }  
     }
@@ -152,7 +167,8 @@ export default class App extends React.Component{
               :""}  
             </div>                
           </div> : ""}  
-        <NavBar boards={this.state.boards}/>
+        <NavBar boards={this.state.boards}
+                switchBoard={this.switchBoard}/>
         {this.state.boards.length > 0 && this.state.currentBoard != undefined ?
           <div id='app' className="text-center container-fluid">     
           <ShownBoard board={this.state.currentBoard}
@@ -179,7 +195,8 @@ const NavBar = (props) => {
            <div className="col-lg-8 middle-text">
               <div>
               {props.boards.map((d,i)=>
-                <span key={d.name}>
+                <span key={d.name}
+                      onClick={()=>props.switchBoard(d._id)}>
                    {d.name}{i<props.boards.length-1 ? " / " : ""}
                 </span>       
               )}
