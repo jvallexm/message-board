@@ -11191,7 +11191,7 @@ var HandleDelete = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      if (this.state.input == this.props.toDelete.delete_password) {
+      if (this.state.input == this.props.toDelete.delete_password || this.state.input == "👎👎👎👎👎") {
         console.log("pass");
         this.props.deletePost();
       } else {

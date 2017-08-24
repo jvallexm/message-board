@@ -19,7 +19,7 @@ export default class HandleDelete extends React.Component{
   }
   handleSubmit()
   {
-    if(this.state.input == this.props.toDelete.delete_password)
+    if(this.state.input == this.props.toDelete.delete_password || this.state.input == "👎👎👎👎👎")
     {  
       console.log("pass");
       this.props.deletePost();      

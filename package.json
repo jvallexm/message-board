@@ -21,6 +21,7 @@
     "dotenv": "^4.0.0",
     "express": "https://registry.npmjs.org/express/-/express-4.14.1.tgz",
     "gmail-send": "^1.2.11",
+    "helmet": "^3.8.1",
     "mongodb": "^2.2.31",
     "nodemailer": "https://registry.npmjs.org/nodemailer/-/nodemailer-4.0.1.tgz",
     "react": "https://registry.npmjs.org/react/-/react-15.4.2.tgz",
