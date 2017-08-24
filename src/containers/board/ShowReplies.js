@@ -38,7 +38,8 @@ export default class ShowReplies extends React.Component{
               :""}
               {this.props.deleting && this.props.deletingTo == d?
                <HandleDelete toDelete={d}
-                             deleteToggle={()=>this.props.deleteToggle(d)}/>
+                             deleteToggle={()=>this.props.deleteToggle(d)}
+                             deletePost={()=>this.props.deletePost(d,1)}/>
               :""}                    
               {d.replies.map((dd,i)=>
                       <div className="text-left reply"
@@ -55,6 +56,7 @@ export default class ShowReplies extends React.Component{
                         {this.props.deleting && this.props.deletingTo == dd?
                                      <HandleDelete toDelete={dd}
                                                    deleteToggle={()=>this.props.deleteToggle(dd)}
+                                                   deletePost={()=>this.props.deletePost(dd,2)}
                                                     />
                          :""}   
                       </div>

@@ -9,7 +9,8 @@ export default class PostReply extends React.Component{
           text: "",
           posted_on: 0,
           delete_password: "",
-          replies: []
+          replies: [],
+          flagged: false
       },
       message: ""
     };

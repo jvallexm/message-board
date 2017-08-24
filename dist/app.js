@@ -11292,7 +11292,8 @@ var PostReply = function (_React$Component) {
         text: "",
         posted_on: 0,
         delete_password: "",
-        replies: []
+        replies: [],
+        flagged: false
       },
       message: ""
     };
@@ -16937,7 +16938,7 @@ var NavBar = function NavBar(props) {
             'span',
             { key: d.name },
             d.name,
-            i < props.boards.length - 1 ? " / " : ""
+            i < props.boards.length - 1 ? " " : ""
           );
         })
       )
@@ -17188,6 +17189,9 @@ var ShowReplies = function (_React$Component) {
             _this2.props.deleting && _this2.props.deletingTo == d ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__HandleDelete_js__["a" /* default */], { toDelete: d,
               deleteToggle: function deleteToggle() {
                 return _this2.props.deleteToggle(d);
+              },
+              deletePost: function deletePost() {
+                return _this2.props.deletePost(d, 1);
               } }) : "",
             d.replies.map(function (dd, i) {
               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -17220,6 +17224,9 @@ var ShowReplies = function (_React$Component) {
                 _this2.props.deleting && _this2.props.deletingTo == dd ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__HandleDelete_js__["a" /* default */], { toDelete: dd,
                   deleteToggle: function deleteToggle() {
                     return _this2.props.deleteToggle(dd);
+                  },
+                  deletePost: function deletePost() {
+                    return _this2.props.deletePost(dd, 2);
                   }
                 }) : ""
               );
@@ -17338,6 +17345,16 @@ var Thread = function (_React$Component) {
         this.props.clearAll();
         this.props.popThread(this.props.currentBoard, deletingTo, true);
       }
+      if (root == 1) {
+        var thread = this.props.thread;
+        var newReplies = [];
+        for (var i = 0; i < thread.replies.length; i++) {
+          if (thread.replies[i]._id != deletingTo._id) newReplies.push(thread.replies[i]);
+        }
+        thread.replies = newReplies;
+        this.props.clearAll();
+        this.props.updateThread(this.props.currentBoard, thread, true);
+      }
     }
   }, {
     key: 'render',
@@ -17443,7 +17460,8 @@ var Thread = function (_React$Component) {
               parseDate: this.parseDate,
               deleteToggle: this.props.deleteToggle,
               deleting: this.props.deleting,
-              deletingTo: this.props.deletingTo })
+              deletingTo: this.props.deletingTo,
+              deletePost: this.deletePost })
           )
         )
       );

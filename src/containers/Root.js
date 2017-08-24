@@ -179,7 +179,7 @@ const NavBar = (props) => {
            <div className="col-lg-8 middle-text">
               {props.boards.map((d,i)=>
                 <span key={d.name}>
-                   {d.name}{i<props.boards.length-1 ? " / " : ""}
+                   {d.name}{i<props.boards.length-1 ? " " : ""}
                 </span>       
               )}
            </div>  

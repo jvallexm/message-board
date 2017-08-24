@@ -108,6 +108,7 @@ io.on('connection', (socket) => {
          {
              var updateThis = db.collection(data.board);
              var updateOne = () => {
+                 console.log("updating post from database");
                  updateThis.update({_id: data.thread._id},data.thread);
                  func();
              };

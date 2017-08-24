@@ -74,6 +74,19 @@ export default class Thread extends React.Component{
       this.props.clearAll();
       this.props.popThread(this.props.currentBoard, deletingTo, true);
     }
+    if(root==1)
+    {
+      let thread = this.props.thread;
+      let newReplies = [];
+      for(let i=0;i<thread.replies.length;i++)
+      {
+        if(thread.replies[i]._id != deletingTo._id)
+          newReplies.push(thread.replies[i]);
+      }
+      thread.replies = newReplies;
+      this.props.clearAll();
+      this.props.updateThread(this.props.currentBoard, thread, true);
+    }
   }
   render()
   {
@@ -136,7 +149,8 @@ export default class Thread extends React.Component{
                          parseDate={this.parseDate}
                          deleteToggle={this.props.deleteToggle}
                          deleting={this.props.deleting}
-                         deletingTo={this.props.deletingTo} />
+                         deletingTo={this.props.deletingTo} 
+                         deletePost={this.deletePost}/>
           </div>  
         </div>
       </div>   
