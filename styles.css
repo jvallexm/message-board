@@ -135,7 +135,9 @@ textarea
 .img-reg{
   min-width: 200px;
   height: 200px;
+  border-radius: 10px;
   padding: 5px;
+  padding-left: 0px !important;
   float: left;
 }
 /* Source: http://snipplr.com/view/10979/css-cross-browser-word-wrap */
