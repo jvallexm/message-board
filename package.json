@@ -1,0 +1,43 @@
+{
+  "name": "jennifer-valle-dot-com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --hot --history-api-fallback --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "engines": {
+    "node": "^6.11.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-loader": "https://registry.npmjs.org/babel-loader/-/babel-loader-6.3.2.tgz",
+    "dotenv": "^4.0.0",
+    "express": "https://registry.npmjs.org/express/-/express-4.14.1.tgz",
+    "gmail-send": "^1.2.11",
+    "mongodb": "^2.2.31",
+    "nodemailer": "https://registry.npmjs.org/nodemailer/-/nodemailer-4.0.1.tgz",
+    "react": "https://registry.npmjs.org/react/-/react-15.4.2.tgz",
+    "react-dom": "https://registry.npmjs.org/react-dom/-/react-dom-15.4.2.tgz",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3",
+    "webpack": "https://registry.npmjs.org/webpack/-/webpack-2.2.1.tgz",
+    "xoauth2": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "webpack": "^2.7.1",
+    "webpack-dev-server": "^2.4.1"
+  }
+}
