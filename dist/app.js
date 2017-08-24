@@ -16933,14 +16933,18 @@ var NavBar = function NavBar(props) {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'col-lg-8 middle-text' },
-        props.boards.map(function (d, i) {
-          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'span',
-            { key: d.name },
-            d.name,
-            i < props.boards.length - 1 ? " " : ""
-          );
-        })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          null,
+          props.boards.map(function (d, i) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'span',
+              { key: d.name },
+              d.name,
+              i < props.boards.length - 1 ? " / " : ""
+            );
+          })
+        )
       )
     )
   );
@@ -17354,6 +17358,20 @@ var Thread = function (_React$Component) {
         thread.replies = newReplies;
         this.props.clearAll();
         this.props.updateThread(this.props.currentBoard, thread, true);
+      }
+      if (root == 2) {
+        var _thread = this.props.thread;
+        for (var _i = 0; _i < _thread.replies.length; _i++) {
+          var _newReplies = [];
+          for (var j = 0; _thread.replies[_i].length; _i++) {
+            if (_thread.replies[_i].replies[j]._id != deletingTo._id) _newReplies.push(_thread.replies[_i].replies[j]);
+          }
+          _thread.replies[_i].replies = _newReplies;
+          //console.log("new replies: ");
+          //console.log(JSON.stringify(newReplies));
+        }
+        this.props.clearAll();
+        this.props.updateThread(this.props.currentBoard, _thread, true);
       }
     }
   }, {

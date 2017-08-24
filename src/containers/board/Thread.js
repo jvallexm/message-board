@@ -87,6 +87,24 @@ export default class Thread extends React.Component{
       this.props.clearAll();
       this.props.updateThread(this.props.currentBoard, thread, true);
     }
+    if(root==2)
+    {
+      let thread = this.props.thread;
+      for(let i=0;i<thread.replies.length;i++)
+      {
+        let newReplies = [];  
+        for(let j=0;thread.replies[i].length;i++)
+        {
+          if(thread.replies[i].replies[j]._id != deletingTo._id)
+            newReplies.push(thread.replies[i].replies[j]);
+        }
+        thread.replies[i].replies = newReplies;
+        //console.log("new replies: ");
+        //console.log(JSON.stringify(newReplies));
+      }
+      this.props.clearAll();
+      this.props.updateThread(this.props.currentBoard, thread, true);
+    }
   }
   render()
   {

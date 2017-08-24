@@ -177,15 +177,17 @@ const NavBar = (props) => {
                A Message Board For Nice People
            </div>
            <div className="col-lg-8 middle-text">
+              <div>
               {props.boards.map((d,i)=>
                 <span key={d.name}>
-                   {d.name}{i<props.boards.length-1 ? " " : ""}
+                   {d.name}{i<props.boards.length-1 ? " / " : ""}
                 </span>       
               )}
+              </div>
            </div>  
         </div>  
       </nav>
   );
-}
+};
 
 
