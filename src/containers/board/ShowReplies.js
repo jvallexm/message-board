@@ -30,13 +30,13 @@ export default class ShowReplies extends React.Component{
                 <span className="blue"
                       onClick={()=>this.props.replyToggle(d)}> Reply</span>
               </div>
-              {this.props.replying && this.props.replyingTo == d?
+              {this.props.replying && this.props.replyingTo._id == d._id?
                <PostReply pushReply={this.props.pushReply}
                           root={false}
                           replyToggle={()=>this.props.replyToggle(d)}
                           replyingTo={d}/>
               :""}
-              {this.props.deleting && this.props.deletingTo == d?
+              {this.props.deleting && this.props.deletingTo._id == d._id?
                <HandleDelete toDelete={d}
                              deleteToggle={()=>this.props.deleteToggle(d)}
                              deletePost={()=>this.props.deletePost(d,1)}/>
@@ -53,7 +53,7 @@ export default class ShowReplies extends React.Component{
                             <span className="red"
                                   onClick={()=>this.props.deleteToggle(dd)}> Delete</span>
                           </div>
-                        {this.props.deleting && this.props.deletingTo == dd?
+                        {this.props.deleting && this.props.deletingTo._id == dd._id?
                                      <HandleDelete toDelete={dd}
                                                    deleteToggle={()=>this.props.deleteToggle(dd)}
                                                    deletePost={()=>this.props.deletePost(dd,2)}

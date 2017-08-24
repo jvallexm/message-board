@@ -16758,7 +16758,11 @@ var App = function (_React$Component) {
       gray: false,
       lockedOut: false,
       lockedOutIp: "",
-      getBoards: ["b", "c"]
+      getBoards: ["b", "c"],
+      replying: false,
+      replyingTo: undefined,
+      deleting: false,
+      deletingTo: undefined
     };
     _this.getCurrentBoard = _this.getCurrentBoard.bind(_this);
     _this.pushThread = _this.pushThread.bind(_this);
@@ -16766,6 +16770,8 @@ var App = function (_React$Component) {
     _this.setBoard = _this.setBoard.bind(_this);
     _this.switchBoard = _this.switchBoard.bind(_this);
     _this.updateThread = _this.updateThread.bind(_this);
+    _this.deleteToggle = _this.deleteToggle.bind(_this);
+    _this.replyToggle = _this.replyToggle.bind(_this);
     return _this;
   }
 
@@ -16790,6 +16796,20 @@ var App = function (_React$Component) {
       socket.on("send update", function (data) {
         _this2.updateThread(data.board, data.thread, false);
       });
+    }
+  }, {
+    key: 'deleteToggle',
+    value: function deleteToggle(deletingTo) {
+      console.log("toggling delete");
+      if (!this.state.deleting || deletingTo != this.state.deletingTo) this.setState({ replying: false, replyingTo: undefined,
+        deleting: true, deletingTo: deletingTo });else this.setState({ deleting: false, deletingTo: undefined,
+        replying: false, replyingTo: undefined });
+    }
+  }, {
+    key: 'replyToggle',
+    value: function replyToggle(replyingTo) {
+      if (!this.state.replying || replyingTo != this.state.replyingTo) this.setState({ replying: true, replyingTo: replyingTo,
+        deleting: false, deletingTo: undefined });else this.setState({ replying: false, replyingTo: undefined });
     }
   }, {
     key: 'getCurrentBoard',
@@ -16925,7 +16945,20 @@ var App = function (_React$Component) {
               return _this3.setState({ lockedOut: true });
             },
             popThread: this.popThread,
-            currentBoard: this.state.currentBoardName })
+            currentBoard: this.state.currentBoardName,
+            replyToggle: this.replyToggle,
+            deleteToggle: this.deleteToggle,
+            replying: this.state.replying,
+            replyingTo: this.state.replyingTo,
+            deleting: this.state.deleting,
+            deletingTo: this.state.deletingTo,
+            repliesOff: function repliesOff() {
+              return _this3.setState({ replyingTo: undefined, replying: false });
+            },
+            clearAll: function clearAll() {
+              return _this3.setState({ replyingTo: undefined, replying: false,
+                deletingTo: undefined, deleting: false });
+            } })
         ) : "Loading..."
       );
     }
@@ -17017,14 +17050,7 @@ var ShownBoard = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ShownBoard.__proto__ || Object.getPrototypeOf(ShownBoard)).call(this, props));
 
-    _this.state = {
-      replying: false,
-      replyingTo: undefined,
-      deleting: false,
-      deletingTo: undefined
-    };
-    _this.deleteToggle = _this.deleteToggle.bind(_this);
-    _this.replyToggle = _this.replyToggle.bind(_this);
+    _this.state = {};
     return _this;
   }
 
@@ -17033,23 +17059,6 @@ var ShownBoard = function (_React$Component) {
     value: function componentWillMount() {
       this.setState({ threads: this.props.board.threads });
     }
-  }, {
-    key: 'deleteToggle',
-    value: function deleteToggle(deletingTo) {
-      console.log("toggling delete");
-      if (!this.state.deleting || deletingTo != this.state.deletingTo) this.setState({ replying: false, replyingTo: undefined,
-        deleting: true, deletingTo: deletingTo });else this.setState({ deleting: false, deletingTo: undefined,
-        replying: false, replyingTo: undefined });
-    }
-  }, {
-    key: 'replyToggle',
-    value: function replyToggle(replyingTo) {
-      if (!this.state.replying || replyingTo != this.state.replyingTo) this.setState({ replying: true, replyingTo: replyingTo,
-        deleting: false, deletingTo: undefined });else this.setState({ replying: false, replyingTo: undefined });
-    }
-  }, {
-    key: 'sortThreads',
-    value: function sortThreads(oldThreads) {}
   }, {
     key: 'render',
     value: function render() {
@@ -17087,20 +17096,15 @@ var ShownBoard = function (_React$Component) {
               thread: d,
               popThread: _this2.props.popThread,
               currentBoard: _this2.props.currentBoard,
-              replyToggle: _this2.replyToggle,
-              deleteToggle: _this2.deleteToggle,
-              replying: _this2.state.replying,
-              replyingTo: _this2.state.replyingTo,
-              deleting: _this2.state.deleting,
-              deletingTo: _this2.state.deletingTo,
+              replyToggle: _this2.props.replyToggle,
+              deleteToggle: _this2.props.deleteToggle,
+              replying: _this2.props.replying,
+              replyingTo: _this2.props.replyingTo,
+              deleting: _this2.props.deleting,
+              deletingTo: _this2.props.deletingTo,
               updateThread: _this2.props.updateThread,
-              repliesOff: function repliesOff() {
-                return _this2.setState({ replyingTo: undefined, replying: false });
-              },
-              clearAll: function clearAll() {
-                return _this2.setState({ replyingTo: undefined, replying: false,
-                  deletingTo: undefined, deleting: false });
-              } });
+              repliesOff: _this2.props.repliesOff,
+              clearAll: _this2.props.clearAll });
           })
         )
       );
@@ -17207,13 +17211,13 @@ var ShowReplies = function (_React$Component) {
                 ' Reply'
               )
             ),
-            _this2.props.replying && _this2.props.replyingTo == d ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__PostReply_js__["a" /* default */], { pushReply: _this2.props.pushReply,
+            _this2.props.replying && _this2.props.replyingTo._id == d._id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__PostReply_js__["a" /* default */], { pushReply: _this2.props.pushReply,
               root: false,
               replyToggle: function replyToggle() {
                 return _this2.props.replyToggle(d);
               },
               replyingTo: d }) : "",
-            _this2.props.deleting && _this2.props.deletingTo == d ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__HandleDelete_js__["a" /* default */], { toDelete: d,
+            _this2.props.deleting && _this2.props.deletingTo._id == d._id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__HandleDelete_js__["a" /* default */], { toDelete: d,
               deleteToggle: function deleteToggle() {
                 return _this2.props.deleteToggle(d);
               },
@@ -17248,7 +17252,7 @@ var ShowReplies = function (_React$Component) {
                     ' Delete'
                   )
                 ),
-                _this2.props.deleting && _this2.props.deletingTo == dd ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__HandleDelete_js__["a" /* default */], { toDelete: dd,
+                _this2.props.deleting && _this2.props.deletingTo._id == dd._id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__HandleDelete_js__["a" /* default */], { toDelete: dd,
                   deleteToggle: function deleteToggle() {
                     return _this2.props.deleteToggle(dd);
                   },
@@ -17390,8 +17394,6 @@ var Thread = function (_React$Component) {
             if (_thread.replies[_i].replies[j]._id != deletingTo._id) _newReplies.push(_thread.replies[_i].replies[j]);
           }
           _thread.replies[_i].replies = _newReplies;
-          //console.log("new replies: ");
-          //console.log(JSON.stringify(newReplies));
         }
         this.props.clearAll();
         this.props.updateThread(this.props.currentBoard, _thread, true);
@@ -17476,13 +17478,13 @@ var Thread = function (_React$Component) {
                 ' Reply'
               )
             ),
-            this.props.replying && this.props.replyingTo == this.props.thread ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__PostReply_js__["a" /* default */], { pushReply: this.pushReply,
+            this.props.replying && this.props.replyingTo._id == this.props.thread._id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__PostReply_js__["a" /* default */], { pushReply: this.pushReply,
               root: true,
               replyToggle: function replyToggle() {
                 return _this2.props.replyToggle(_this2.props.thread);
               },
               replyingTo: this.state.thread }) : "",
-            this.props.deleting && this.props.deletingTo == this.props.thread ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__HandleDelete_js__["a" /* default */], { toDelete: this.props.thread,
+            this.props.deleting && this.props.deletingTo._id == this.props.thread._id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__HandleDelete_js__["a" /* default */], { toDelete: this.props.thread,
               deleteToggle: function deleteToggle() {
                 return _this2.props.deleteToggle(_this2.props.thread);
               },

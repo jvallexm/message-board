@@ -99,8 +99,6 @@ export default class Thread extends React.Component{
             newReplies.push(thread.replies[i].replies[j]);
         }
         thread.replies[i].replies = newReplies;
-        //console.log("new replies: ");
-        //console.log(JSON.stringify(newReplies));
       }
       this.props.clearAll();
       this.props.updateThread(this.props.currentBoard, thread, true);
@@ -139,7 +137,7 @@ export default class Thread extends React.Component{
                      onClick={()=>this.props.replyToggle(this.props.thread)}> Reply</span>
              </div>
              {
-              this.props.replying && this.props.replyingTo == this.props.thread 
+              this.props.replying && this.props.replyingTo._id == this.props.thread._id 
               ?
               <PostReply pushReply={this.pushReply}
                          root={true}
@@ -149,7 +147,7 @@ export default class Thread extends React.Component{
               ""
              }
              {
-              this.props.deleting && this.props.deletingTo == this.props.thread 
+              this.props.deleting && this.props.deletingTo._id == this.props.thread._id 
               ?
               <HandleDelete toDelete={this.props.thread}
                             deleteToggle={()=>this.props.deleteToggle(this.props.thread)}

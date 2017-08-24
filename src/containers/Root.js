@@ -15,7 +15,11 @@ export default class App extends React.Component{
       gray: false,
       lockedOut: false,
       lockedOutIp: "",
-      getBoards: ["b","c"]
+      getBoards: ["b","c"],
+      replying: false,
+      replyingTo: undefined,
+      deleting: false,
+      deletingTo: undefined,
     }
     this.getCurrentBoard = this.getCurrentBoard.bind(this);
     this.pushThread = this.pushThread.bind(this);
@@ -23,6 +27,8 @@ export default class App extends React.Component{
     this.setBoard = this.setBoard.bind(this);
     this.switchBoard = this.switchBoard.bind(this);
     this.updateThread = this.updateThread.bind(this);
+    this.deleteToggle = this.deleteToggle.bind(this);
+    this.replyToggle = this.replyToggle.bind(this);
   }
   componentWillMount()
   {
@@ -42,6 +48,24 @@ export default class App extends React.Component{
     socket.on("send update",(data)=>{
       this.updateThread(data.board,data.thread,false);
     });
+  }
+  deleteToggle(deletingTo)
+  {
+    console.log("toggling delete");
+    if(!this.state.deleting || deletingTo != this.state.deletingTo)
+      this.setState({replying: false, replyingTo: undefined,
+                     deleting: true, deletingTo: deletingTo});
+    else
+      this.setState({deleting: false, deletingTo: undefined,
+                     replying: false, replyingTo: undefined});
+  }
+  replyToggle(replyingTo)
+  {
+    if(!this.state.replying || replyingTo != this.state.replyingTo)
+      this.setState({replying: true, replyingTo: replyingTo,
+                     deleting: false, deletingTo: undefined});
+    else
+      this.setState({replying: false, replyingTo: undefined});
   }
   getCurrentBoard(board)
   {
@@ -177,7 +201,16 @@ export default class App extends React.Component{
                       lockedOut={this.state.lockedOut}
                       lock={()=>this.setState({lockedOut: true})}
                       popThread={this.popThread}
-                      currentBoard={this.state.currentBoardName}/>
+                      currentBoard={this.state.currentBoardName}
+                      replyToggle = {this.replyToggle}
+                      deleteToggle = {this.deleteToggle}
+                      replying = {this.state.replying}
+                      replyingTo = {this.state.replyingTo}
+                      deleting = {this.state.deleting}
+                      deletingTo = {this.state.deletingTo}
+                      repliesOff={()=>this.setState({replyingTo: undefined, replying: false})}
+                      clearAll={()=>this.setState({replyingTo: undefined, replying: false,
+                                                   deletingTo: undefined, deleting: false})}/>
          </div>
         : "Loading..."} 
       </div>  
