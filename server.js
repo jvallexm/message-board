@@ -16,14 +16,47 @@ const io = require('socket.io')(server);
 var url = process.env.MONGO_URL;
 
 io.on('connection', (socket) => {
-   
-   console.log("new connection!");
-   
-   //Sends clients all boards when they connect
-   socket.on("need boards",(boards)=>{
+
+   //Adds a new thread
+   var pushThread = (data, func) =>{
+            MongoClient.connect(url, (err,db)=>{
+             if(err)
+               console.log(err);
+             else
+             {
+                 var pushTo = db.collection(data.board);
+                 var pushOne = () =>{
+                     console.log("sending new thread to database");
+                     pushTo.insert(data.thread);
+                     func();
+                 };
+                 pushOne(db,()=>{db.close();});
+             }
+       });     
+    };
+    
+    //Removes and old thread
+    var popThread = (data, func) =>{
         
-        console.log("a user needs boards");     
-        MongoClient.connect(url, (err,db)=>{
+            MongoClient.connect(url, (err,db)=>{
+             if(err)
+               console.log(err);
+             else
+             {
+                 var removeFrom = db.collection(data.board);
+                 var removeOne = () =>{
+                     console.log("removing thread from database");
+                     removeFrom.remove({_id: data.thread._id});
+                     func();
+                 };
+                 removeOne(db,()=>{db.close();});
+             }
+       });      
+    };
+    
+    //Sends boards from an array
+    var getBoards = (boards,func) =>{
+                MongoClient.connect(url, (err,db)=>{
          if(err)
            console.log(err);
          else
@@ -52,8 +85,7 @@ io.on('connection', (socket) => {
                                  toSend.push(newBoard);
                                  if(toSend.length == length)
                                  {
-                                     console.log("all boards found, sending " + length + " boards to client");
-                                     socket.emit("send boards", {boards: toSend});
+                                     func(toSend, length);
                                      db.close();
                                  }
                              }
@@ -64,44 +96,28 @@ io.on('connection', (socket) => {
                 getBoard(boards.boards[i],boards.boards.length);
             }
          }
-         
        });
+    };
+   
+   console.log("new connection!");
+   
+   //Sends clients all boards when they connect
+   socket.on("need boards",(boards)=>{
+        console.log("a user needs boards");     
+        getBoards(boards,(toSend, length)=>{
+           console.log("all boards found, sending " + length + " boards to client");
+           socket.emit("send boards", {boards: toSend}); 
+        });
    });
    
    //Pushes new board to database
    socket.on("push thread",(data)=>{
-        MongoClient.connect(url, (err,db)=>{
-             if(err)
-               console.log(err);
-             else
-             {
-                 var pushTo = db.collection(data.board);
-                 var pushOne = () =>{
-                     console.log("sending new thread to database");
-                     pushTo.insert(data.thread);
-                     socket.broadcast.emit("send thread", data);
-                 };
-                 pushOne(db,()=>{db.close();});
-             }
-       });     
+        pushThread(data, ()=>{socket.broadcast.emit("send thread", data);});
    });
    
    //Pops deleted threads from database
    socket.on("pop thread",(data)=>{
-        MongoClient.connect(url, (err,db)=>{
-             if(err)
-               console.log(err);
-             else
-             {
-                 var removeFrom = db.collection(data.board);
-                 var removeOne = () =>{
-                     console.log("removing thread from database");
-                     removeFrom.remove({_id: data.thread._id});
-                     socket.broadcast.emit("send pop", data);
-                 };
-                 removeOne(db,()=>{db.close();});
-             }
-       });     
+        popThread(data, ()=>{socket.broadcast.emit("send pop", data);});
    });
    
 });
