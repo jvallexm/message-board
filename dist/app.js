@@ -16781,6 +16781,9 @@ var App = function (_React$Component) {
       socket.on("send pop", function (data) {
         _this2.popThread(data.board, data.thread, false);
       });
+      socket.on("send update", function (data) {
+        _this2.updateThread(data.board, data.thread, false);
+      });
     }
   }, {
     key: 'getCurrentBoard',
@@ -16846,7 +16849,7 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'updateThread',
-    value: function updateThread(board, thread) {
+    value: function updateThread(board, thread, isNew) {
       var boards = this.state.boards;
       var index = 0;
       for (var i = 0; i < boards.length; i++) {
@@ -16856,6 +16859,12 @@ var App = function (_React$Component) {
         if (thread._id == boards[index].threads[j]._id) {
           boards[index].threads[j] = thread;
         }
+      }
+      if (isNew) {
+        socket.emit("post update", {
+          board: board,
+          thread: thread
+        });
       }
       this.setState({ boards: boards });
       if (board == this.state.currentBoardName) this.getCurrentBoard();
@@ -17319,7 +17328,7 @@ var Thread = function (_React$Component) {
       }
       //thread.bumped_on = Math.round((new Date()).getTime() / 1000);
       this.props.repliesOff();
-      this.props.updateThread(thread);
+      this.props.updateThread(this.props.currentBoard, thread, true);
     }
   }, {
     key: 'deletePost',

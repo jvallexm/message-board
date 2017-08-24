@@ -56,7 +56,7 @@ io.on('connection', (socket) => {
     
     //Sends boards from an array
     var getBoards = (boards,func) =>{
-                MongoClient.connect(url, (err,db)=>{
+       MongoClient.connect(url, (err,db)=>{
          if(err)
            console.log(err);
          else
@@ -98,6 +98,23 @@ io.on('connection', (socket) => {
          }
        });
     };
+    
+   //Adds updates to threads
+   var updateThread = (data, func) =>{
+      MongoClient.connect(url, (err,db)=>{
+         if(err)
+           console.log(err);
+         else
+         {
+             var updateThis = db.collection(data.board);
+             var updateOne = () => {
+                 updateThis.update({_id: data.thread._id},data.thread);
+                 func();
+             };
+             updateOne(db,()=>{db.close();});
+         }
+      });     
+   };
    
    console.log("new connection!");
    
@@ -118,6 +135,11 @@ io.on('connection', (socket) => {
    //Pops deleted threads from database
    socket.on("pop thread",(data)=>{
         popThread(data, ()=>{socket.broadcast.emit("send pop", data);});
+   });
+   
+   //Posts updated threads to database
+   socket.on("post update",(data)=>{
+       updateThread(data,()=>{socket.broadcast.emit("send update", data)});
    });
    
 });

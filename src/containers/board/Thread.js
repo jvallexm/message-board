@@ -64,7 +64,7 @@ export default class Thread extends React.Component{
     }
     //thread.bumped_on = Math.round((new Date()).getTime() / 1000);
     this.props.repliesOff();
-    this.props.updateThread(thread);
+    this.props.updateThread(this.props.currentBoard, thread, true);
   }
   deletePost(deletingTo,root)
   {

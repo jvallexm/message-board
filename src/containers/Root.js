@@ -37,6 +37,9 @@ export default class App extends React.Component{
     socket.on("send pop",(data)=>{
       this.popThread(data.board,data.thread,false);
     });
+    socket.on("send update",(data)=>{
+      this.updateThread(data.board,data.thread,false);
+    });
   }
   getCurrentBoard()
   {
@@ -108,7 +111,7 @@ export default class App extends React.Component{
     if(board == this.state.currentBoardName)
       this.getCurrentBoard();
   }
-  updateThread(board,thread)
+  updateThread(board,thread,isNew)
   {
     let boards = this.state.boards;
     let index = 0;
@@ -123,6 +126,13 @@ export default class App extends React.Component{
       {
         boards[index].threads[j] = thread;
       }  
+    }
+    if(isNew)
+    {
+      socket.emit("post update",{
+        board: board,
+        thread: thread
+      });
     }
     this.setState({boards: boards});
     if(board == this.state.currentBoardName)
