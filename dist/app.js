@@ -16753,7 +16753,8 @@ var App = function (_React$Component) {
       currentBoard: undefined,
       gray: false,
       lockedOut: false,
-      lockedOutIp: ""
+      lockedOutIp: "",
+      getBoards: ["b", "c"]
     };
     _this.getCurrentBoard = _this.getCurrentBoard.bind(_this);
     _this.pushThread = _this.pushThread.bind(_this);
@@ -16765,7 +16766,15 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.getCurrentBoard();
+      var _this2 = this;
+
+      socket.emit('need boards', { boards: this.state.getBoards });
+      socket.on("send boards", function (data) {
+        console.log("getting boards from server..");
+        console.log(data.boards);
+        _this2.setState({ boards: data.boards });
+        _this2.getCurrentBoard();
+      });
     }
   }, {
     key: 'getCurrentBoard',
@@ -16833,7 +16842,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -16845,26 +16854,26 @@ var App = function (_React$Component) {
             'div',
             { className: 'text-center container-fluid new-thread' },
             !this.state.lockedOut ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__NewThread_js__["a" /* default */], { cancel: function cancel() {
-                return _this2.setState({ gray: false });
+                return _this3.setState({ gray: false });
               },
               pushThread: this.pushThread }) : ""
           )
         ) : "",
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(NavBar, { boards: this.state.boards }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        this.state.boards.length > 0 && this.state.currentBoard != undefined ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { id: 'app', className: 'text-center container-fluid' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ShownBoard_js__["a" /* default */], { board: this.state.currentBoard,
             grayOut: function grayOut() {
-              return _this2.setState({ gray: true });
+              return _this3.setState({ gray: true });
             },
             updateThread: this.updateThread,
             lockedOut: this.state.lockedOut,
             lock: function lock() {
-              return _this2.setState({ lockedOut: true });
+              return _this3.setState({ lockedOut: true });
             },
             popThread: this.popThread })
-        )
+        ) : "Loading..."
       );
     }
   }]);

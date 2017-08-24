@@ -9,16 +9,13 @@ export default class App extends React.Component{
   {
     super(props);
     this.state = {
-      boards: [{
-        _id: "/b/",
-        name: "Random",
-        threads: []
-      }],
+      boards: [],
       currentBoardName: "Random",
       currentBoard: undefined,
       gray: false,
       lockedOut: false,
-      lockedOutIp: ""
+      lockedOutIp: "",
+      getBoards: ["b","c"]
     }
     this.getCurrentBoard = this.getCurrentBoard.bind(this);
     this.pushThread = this.pushThread.bind(this);
@@ -27,7 +24,13 @@ export default class App extends React.Component{
   }
   componentWillMount()
   {
-    this.getCurrentBoard();
+    socket.emit('need boards', {boards: this.state.getBoards});
+    socket.on("send boards",(data)=>{
+      console.log("getting boards from server..");
+      //console.log(data.boards);
+      this.setState({boards: data.boards});
+      this.getCurrentBoard();
+    })
   }
   getCurrentBoard()
   {
@@ -114,14 +117,16 @@ export default class App extends React.Component{
             </div>                
           </div> : ""}  
         <NavBar boards={this.state.boards}/>
-        <div id='app' className="text-center container-fluid">     
+        {this.state.boards.length > 0 && this.state.currentBoard != undefined ?
+          <div id='app' className="text-center container-fluid">     
           <ShownBoard board={this.state.currentBoard}
                       grayOut={()=>this.setState({gray: true})}
                       updateThread={this.updateThread}
                       lockedOut={this.state.lockedOut}
                       lock={()=>this.setState({lockedOut: true})}
                       popThread={this.popThread}/>
-        </div>
+         </div>
+        : "Loading..."} 
       </div>  
     );
   }

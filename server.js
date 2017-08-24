@@ -13,10 +13,60 @@ const server = app
 
 const io = require('socket.io')(server);
 
-//var url = process.env.MONGO_URL;
+var url = process.env.MONGO_URL;
 
 io.on('connection', (socket) => {
-    
-    console.log("new connection: " + socket.id);
-    
+   
+   console.log("new connection!");
+   
+   //Sends clients all boards when they connect
+   socket.on("need boards",(boards)=>{
+        
+        console.log("a user needs boards");     
+        MongoClient.connect(url, (err,db)=>{
+         if(err)
+           console.log(err);
+         else
+         {
+            var toSend = [];
+            var getBoard = (board,length)=>{
+                console.log("attempting to get board " + board);
+                var thisBoard = db.collection(board);
+                var newBoard = {
+                    _id: board,
+                    name: "",
+                    threads: []
+                };
+                if(board == "b")
+                  newBoard.name = "Random";
+                if(board == "c")  
+                  newBoard.name = "Compliments";
+                thisBoard.find({},{})
+                         .toArray((err,result)=>{
+                             if(err)
+                                console.log(err);
+                             else
+                             {
+                                 console.log("got board " + board + " from database");
+                                 newBoard.threads = result;
+                                 toSend.push(newBoard);
+                                 if(toSend.length == length)
+                                 {
+                                     console.log("all boards found, sending " + length + " boards to client");
+                                     socket.emit("send boards", {boards: toSend});
+                                 }
+                             }
+                         });
+            };      
+            for(var i=0;i<boards.boards.length;i++)
+            {
+                getBoard(boards.boards[i],boards.boards.length);
+            }
+         }
+         
+       });
+   });
+   
+   
+   
 });
