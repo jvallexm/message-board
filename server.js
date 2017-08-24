@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
                                  {
                                      console.log("all boards found, sending " + length + " boards to client");
                                      socket.emit("send boards", {boards: toSend});
+                                     db.close();
                                  }
                              }
                          });
@@ -67,6 +68,21 @@ io.on('connection', (socket) => {
        });
    });
    
-   
+   //Pushes new board to database
+   socket.on("push thread",(data)=>{
+        MongoClient.connect(url, (err,db)=>{
+             if(err)
+               console.log(err);
+             else
+             {
+                 var pushTo = db.collection(data.board);
+                 var pushOne = () =>{
+                     pushTo.insert(data.thread);
+                     socket.broadcast.emit("send thread", data);
+                 };
+                 pushOne(db,()=>{db.close();});
+             }
+       });     
+   });
    
 });

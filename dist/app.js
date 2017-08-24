@@ -16598,7 +16598,7 @@ var NewThread = function (_React$Component) {
       thread.posted_on = Math.round(new Date().getTime() / 1000);
       thread.bumped_on = Math.round(new Date().getTime() / 1000);
       thread._id = Math.round(new Date().getTime() / 1000);
-      this.props.pushThread(thread);
+      this.props.pushThread(this.props.board, thread, true);
       this.props.cancel();
     }
   }, {
@@ -16749,7 +16749,7 @@ var App = function (_React$Component) {
 
     _this.state = {
       boards: [],
-      currentBoardName: "Random",
+      currentBoardName: "b",
       currentBoard: undefined,
       gray: false,
       lockedOut: false,
@@ -16771,9 +16771,12 @@ var App = function (_React$Component) {
       socket.emit('need boards', { boards: this.state.getBoards });
       socket.on("send boards", function (data) {
         console.log("getting boards from server..");
-        console.log(data.boards);
+        //console.log(data.boards);
         _this2.setState({ boards: data.boards });
         _this2.getCurrentBoard();
+      });
+      socket.on("send thread", function (data) {
+        _this2.pushThread(data.board, data.thread, false);
       });
     }
   }, {
@@ -16781,7 +16784,7 @@ var App = function (_React$Component) {
     value: function getCurrentBoard() {
       console.log("getting current board");
       for (var i = 0; i < this.state.boards.length; i++) {
-        if (this.state.boards[i].name == this.state.currentBoardName) {
+        if (this.state.boards[i]._id == this.state.currentBoardName) {
           var currentBoard = this.state.boards[i];
           console.log(currentBoard.threads);
           this.setState({ currentBoard: currentBoard });
@@ -16796,7 +16799,7 @@ var App = function (_React$Component) {
       var boards = this.state.boards;
       console.log("popping thread.. " + thread._id);
       for (var i = 0; i < boards.length; i++) {
-        if (boards[i].name == this.state.currentBoardName) {
+        if (boards[i]._id == this.state.currentBoardName) {
           var threads = [];
           for (var j = 0; j < boards[i].threads.length; j++) {
             if (boards[i].threads[j]._id != thread._id) threads.push(boards[i].threads[j]);
@@ -16811,25 +16814,32 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'pushThread',
-    value: function pushThread(thread) {
+    value: function pushThread(board, thread, isNew) {
       var boards = this.state.boards;
-      console.log("pushing thread...");
+      console.log("pushing thread to " + board);
       console.log(thread);
       for (var i = 0; i < boards.length; i++) {
-        if (boards[i].name == this.state.currentBoardName) {
+        if (boards[i]._id == board) {
           boards[i].threads.push(thread);
         }
       }
+      if (isNew) {
+        console.log("sending thread to database");
+        socket.emit("push thread", {
+          board: board,
+          thread: thread
+        });
+      }
       this.setState({ boards: boards });
-      this.getCurrentBoard();
+      if (board == this.state.currentBoardName) this.getCurrentBoard();
     }
   }, {
     key: 'updateThread',
-    value: function updateThread(thread) {
+    value: function updateThread(board, thread) {
       var boards = this.state.boards;
       var index = 0;
       for (var i = 0; i < boards.length; i++) {
-        if (boards[i].name == this.state.currentBoardName) index = i;
+        if (boards[i]._id == board) index = i;
       }
       for (var j = 0; j < boards[index].threads.length; j++) {
         if (thread._id == boards[index].threads[j]._id) {
@@ -16837,7 +16847,7 @@ var App = function (_React$Component) {
         }
       }
       this.setState({ boards: boards });
-      this.getCurrentBoard();
+      if (board == this.state.currentBoardName) this.getCurrentBoard();
     }
   }, {
     key: 'render',
@@ -16856,7 +16866,8 @@ var App = function (_React$Component) {
             !this.state.lockedOut ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__NewThread_js__["a" /* default */], { cancel: function cancel() {
                 return _this3.setState({ gray: false });
               },
-              pushThread: this.pushThread }) : ""
+              pushThread: this.pushThread,
+              board: this.state.currentBoardName }) : ""
           )
         ) : "",
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(NavBar, { boards: this.state.boards }),
@@ -16894,12 +16905,12 @@ var NavBar = function NavBar(props) {
       { className: 'row' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'col-lg-6 middle-text' },
+        { className: 'col-lg-4 middle-text' },
         'A Message Board For Nice People'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'col-lg-6 middle-text' },
+        { className: 'col-lg-8 middle-text' },
         props.boards.map(function (d, i) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'span',

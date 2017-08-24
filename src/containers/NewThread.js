@@ -61,7 +61,7 @@ export default class NewThread extends React.Component{
     thread.posted_on = Math.round((new Date()).getTime() / 1000);
     thread.bumped_on = Math.round((new Date()).getTime() / 1000);
     thread._id = Math.round((new Date()).getTime() / 1000);
-    this.props.pushThread(thread);
+    this.props.pushThread(this.props.board,thread,true);
     this.props.cancel();
   }
   render()
