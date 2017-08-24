@@ -17022,8 +17022,12 @@ var NavBar = function NavBar(props) {
                 onClick: d._id == props.board ? "" : function () {
                   return props.switchBoard(d._id);
                 },
-                className: d._id == props.board ? "gray" : "pointer" },
-              d.name,
+                className: d._id == props.board ? "" : "pointer" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: d._id == props.board ? "gray" : "" },
+                d.name
+              ),
               i < props.boards.length - 1 ? " / " : ""
             );
           })

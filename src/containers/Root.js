@@ -242,8 +242,8 @@ const NavBar = (props) => {
               }).map((d,i)=>
                 <span key={d.name}
                       onClick={d._id==props.board ? "" : ()=>props.switchBoard(d._id)}
-                      className={d._id==props.board ? "gray" : "pointer"}>
-                   {d.name}{i<props.boards.length-1 ? " / " : ""}
+                      className={d._id==props.board ? "" : "pointer"}>
+                   <span className={d._id==props.board ? "gray" : ""}>{d.name}</span>{i<props.boards.length-1 ? " / " : ""}
                 </span>       
               )}
               </div>
