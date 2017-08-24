@@ -16647,6 +16647,24 @@ var NewThread = function (_React$Component) {
             { className: "row" },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
+              { className: "col-md-3 col-left" },
+              "Image (Optional)"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "col-md-9 col-right" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { className: "width-100",
+                placeholder: "Image URL (optional)",
+                name: "attachment",
+                onChange: this.handleChange,
+                value: this.state.thread.attachment })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "row" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
               { className: "col-md-3 col-left middle-text" },
               "Post"
             ),
@@ -16689,7 +16707,7 @@ var NewThread = function (_React$Component) {
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "button",
-              { className: "thread-head board-head btn from-top cancel",
+              { className: "lil-space thread-head board-head btn from-top cancel",
                 onClick: this.props.cancel },
               "Cancel"
             )
@@ -16981,12 +16999,12 @@ var NavBar = function NavBar(props) {
       { className: 'row' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'col-lg-4 middle-text' },
+        { className: 'col-lg-6 middle-text' },
         'A Message Board For Nice People'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'col-lg-8 middle-text' },
+        { className: 'col-lg-6 middle-text' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           null,
@@ -17093,7 +17111,9 @@ var ShownBoard = function (_React$Component) {
             'New Thread'
           ),
           this.props.board.threads.sort(function (a, b) {
-            if (a.bumped_on > b.bumped_on) return -1;else return 1;
+            if (!_this2.props.deleting && !_this2.props.repllying) {
+              if (a.bumped_on > b.bumped_on) return -1;else return 1;
+            }
           }).map(function (d, i) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__board_Thread_js__["a" /* default */], { key: "thread" + i,
               thread: d,
@@ -17451,7 +17471,16 @@ var Thread = function (_React$Component) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'text-left' },
-            this.props.thread.text,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              null,
+              this.props.thread.attachment != undefined && this.props.thread.attachment != "" ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'img-reg', src: this.props.thread.attachment }) : "",
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: this.props.thread.attachment != undefined ? "wordwrap" : "" },
+                this.props.thread.text
+              )
+            ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
               { className: 'smol' },

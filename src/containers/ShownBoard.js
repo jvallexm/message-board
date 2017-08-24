@@ -28,10 +28,13 @@ export default class ShownBoard extends React.Component{
               New Thread
             </button>
             {this.props.board.threads.sort((a,b)=>{
-                if(a.bumped_on > b.bumped_on)
-                  return -1;
-                else
-                  return 1;
+               if(!this.props.deleting && !this.props.repllying)
+               {
+                  if(a.bumped_on > b.bumped_on)
+                    return -1;
+                  else
+                    return 1;
+               }    
              }).map((d,i)=>
               <Thread key={"thread" + i} 
                       thread={d} 

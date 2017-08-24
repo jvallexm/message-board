@@ -223,10 +223,10 @@ const NavBar = (props) => {
   return(
       <nav className="text-center container-fluid">
         <div className="row">
-           <div className="col-lg-4 middle-text">
+           <div className="col-lg-6 middle-text">
                A Message Board For Nice People
            </div>
-           <div className="col-lg-8 middle-text">
+           <div className="col-lg-6 middle-text">
               <div>
               {props.boards.sort((a,b)=>{
                if(a.name < b.name)
