@@ -16822,6 +16822,9 @@ var App = function (_React$Component) {
       socket.on("send update", function (data) {
         _this2.updateThread(data.board, data.thread, false);
       });
+      socket.on("console log", function (data) {
+        console.log(data.log);
+      });
     }
   }, {
     key: 'deleteToggle',

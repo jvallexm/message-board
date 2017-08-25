@@ -1,11 +1,12 @@
 'use strict';
 
-var path = require('path');
-var express = require('express');
-var app = express(); 
-var env = require('dotenv').config();
-var helmet = require('helmet');
-var UpdateDb = require('./database/updateDb.js');
+var path      = require('path');
+var express   = require('express');
+var app       = express(); 
+var env       = require('dotenv').config();
+var helmet    = require('helmet');
+var UpdateDb  = require('./database/updateDb.js');
+var apiRoutes = require('./routes/apiRoutes.js');
 
 const server = app
   .use(helmet())
@@ -47,5 +48,11 @@ io.on('connection', (socket) => {
    socket.on("post update",(data)=>{
       UpdateDb.updateThread(url,data,()=>{socket.broadcast.emit("send update", data)});
    });
-   
+
 });
+
+app.get('/forms',(req,res)=>{
+   res.redirect('./forms.html'); 
+});
+
+apiRoutes(app,io,server,url);

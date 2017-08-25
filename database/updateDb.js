@@ -41,7 +41,7 @@ const UpdateDb =
     },
     
     //Sends boards from an array
-    getBoards: (url,boards,func)=>{
+    getBoards: (url,boards,func,no_delete)=>{
        MongoClient.connect(url, (err,db)=>{
          if(err)
            console.log(err);
@@ -66,7 +66,17 @@ const UpdateDb =
                   newBoard.name = "Memes";
                 if(board == "p")
                   newBoard.name = "Pop Punk";
-                thisBoard.find({},{})
+                var obj = {};
+                if(no_delete)
+                {
+                    console.log("removing delete_password");
+                    obj = {
+                        delete_password: 0,
+                        "replies.delete_password": 0,
+                        "replies.replies.delete_password": 0
+                    };
+                }    
+                thisBoard.find({},obj)
                          .toArray((err,result)=>{
                              if(err)
                                 console.log(err);
@@ -107,8 +117,11 @@ const UpdateDb =
              updateOne(db,()=>{db.close();});
          }
       });     
-   }
-
+   },
+    
+   test: ()=>{
+       console.log("db module test");
+   }    
 };
 
 module.exports = UpdateDb;

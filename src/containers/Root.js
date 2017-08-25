@@ -57,6 +57,9 @@ export default class App extends React.Component{
     socket.on("send update",(data)=>{
       this.updateThread(data.board,data.thread,false);
     });
+    socket.on("console log",(data)=>{
+      console.log(data.log);
+    });
   }
   deleteToggle(deletingTo)
   {
