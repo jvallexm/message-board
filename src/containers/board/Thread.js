@@ -2,21 +2,22 @@ import React from 'react';
 import ShowReplies from './ShowReplies.js';
 import HandleDelete from './HandleDelete.js';
 import PostReply from './PostReply.js';
+import Flag from './HandleFlag.js';
 
 export default class Thread extends React.Component{
   constructor(props)
   {
     super(props);
     this.state = {
-      replying: false,
-      replyingTo: undefined,
-      deleting: false,
-      deletingTo: undefined
-    }
+      replying    : false,
+      replyingTo  : undefined,
+      deleting    : false,
+      deletingTo  : undefined
+    };
     this.deletePost = this.deletePost.bind(this);
     this.getReplies = this.getReplies.bind(this);
-    this.parseDate = this.parseDate.bind(this);
-    this.pushReply = this.pushReply.bind(this);
+    this.parseDate  = this.parseDate.bind(this);
+    this.pushReply  = this.pushReply.bind(this);
   }
   getReplies()
   {
@@ -123,8 +124,7 @@ export default class Thread extends React.Component{
                     <span> {this.getReplies()} <i className="fa fa-comments" /></span>
                   </div>
                   <div className="col-md-1 middle-text col-right">
-                    <i className="fa fa-flag red"
-                       title={"Flag This Post"} />
+                    <Flag post = {this.props.thread} />
                   </div>  
              </div>
           </div>  
@@ -138,8 +138,7 @@ export default class Thread extends React.Component{
                    </div>  
             </div>
              <div className="smol">
-               <span className="red"> <i className="fa fa-flag" 
-                                         title={"Flag This Post"}/> </span>
+               <span> <Flag post = {this.props.thread} /> </span>
                   {this.parseDate(this.props.thread.posted_on)}
                <span className="red"
                      onClick={()=>this.props.deleteToggle(this.props.thread)}> Delete </span>

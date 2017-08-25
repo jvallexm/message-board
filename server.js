@@ -46,8 +46,12 @@ io.on('connection', (socket) => {
    
    //Posts updated threads to database
    socket.on("post update",(data)=>{
-      UpdateDb.updateThread(url,data,()=>{socket.broadcast.emit("send update", data)});
+       UpdateDb.updateThread(url,data,()=>{socket.broadcast.emit("send update", data)});
    });
+   
+   socket.on("flag",(data)=>{
+       
+   })
 
 });
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import HandleDelete from './HandleDelete.js';
 import PostReply from './PostReply.js';
+import Flag from './HandleFlag.js';
 
 export default class ShowReplies extends React.Component{
   constructor(props)
@@ -22,8 +23,7 @@ export default class ShowReplies extends React.Component{
                  key = {d + " " + i}>
               {d.text}
               <div className="smol">
-                <span className="red"> <i className="fa fa-flag" 
-                                          title={"Flag this post"}/> </span>
+                <span> <Flag post={d} /> </span>
                   {this.props.parseDate(d.posted_on)}                
                 <span className="red"
                       onClick={()=>this.props.deleteToggle(d)}> Delete</span>
@@ -46,9 +46,7 @@ export default class ShowReplies extends React.Component{
                            key={d.name + "reply" + i}>
                         {dd.text}
                           <div className="smol">
-                            <span className="red"
-                                  > <i className="fa fa-flag" 
-                                       title={"Flag this post"}/> </span>
+                            <span> <Flag post={dd} /> </span>
                               {this.props.parseDate(dd.posted_on)}  
                             <span className="red"
                                   onClick={()=>this.props.deleteToggle(dd)}> Delete</span>

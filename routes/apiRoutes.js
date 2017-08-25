@@ -7,21 +7,37 @@ var Replies   =  require('./replies.js');
 module.exports = (app,io,socket,url) => {
     
   app.route('/api/threads/:board')
+     .delete((req,res)=>{
+         
+     })
      .get((req,res)=>{ 
          Thread.getBoard(req,res,url); 
+     })
+     .post((req,res)=>{
+         
+     })
+     .put((req,res)=>{
+         
      });
   
   app.route('/api/replies/:board?')
+     .delete((req,res)=>{
+         
+     })
      .get((req,res)=>{
          Replies.getThread(req,res,url);
+     })
+     .post((req,res)=>{
+         
+     })
+     .put((req,res)=>{
+         
      });
   
 };
 
 /*
 
-I can GET an array of the most recent 10 bumped threads on the board with only the most recent 3 replies from /api/threads/{board}. The reported and delete_passwords fields will not be sent.
-I can GET an entire thread with all it's replies from /api/replies/{board}?thread_id={thread_id}. Also hiding the same fields.
 
 I can POST a thread to a specific message board by passing form data text and delete_password to /api/threads/{board}.(Recomend res.redirect to board page /b/{board}) Saved will be _id, text, created_on(date&time), bumped_on(date&time, starts same as created_on), reported(boolean), delete_password, & replies(array).
 I can POST a reply to a thead on a specific board by passing form data text, delete_password, & thread_id to /api/replies/{board} and it will also update the bumped_on date to the comments date.(Recomend res.redirect to thread page /b/{board}/{thread_id}) In the thread's 'replies' array will be saved _id, text, created_on, delete_password, & reported.

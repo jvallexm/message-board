@@ -167,3 +167,6 @@ textarea
 .new-thread-button{
   margin-bottom:10px;
 }
+.flag-this:hover{
+  color: #E63946;
+}

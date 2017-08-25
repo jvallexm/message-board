@@ -9,27 +9,28 @@ export default class App extends React.Component{
   {
     super(props);
     this.state = {
-      boards: [],
-      currentBoardName: "b",
-      currentBoard: undefined,
-      gray: false,
-      lockedOut: false,
-      lockedOutIp: "",
-      getBoards: ["b","c","p","d","m"],
-      replying: false,
-      replyingTo: undefined,
-      deleting: false,
-      deletingTo: undefined,
-      admin: false
+      boards            : [],
+      currentBoardName  : "b",
+      currentBoard      : undefined,
+      gray              : false,
+      lockedOut         : false,
+      lockedOutIp       : "",
+      getBoards         : ["b","c","p","d","m"],
+      replying          : false,
+      replyingTo        : undefined,
+      deleting          : false,
+      deletingTo        : undefined,
+      admin             : false
     };
-    this.getCurrentBoard = this.getCurrentBoard.bind(this);
-    this.pushThread = this.pushThread.bind(this);
-    this.popThread = this.popThread.bind(this);
-    this.setBoard = this.setBoard.bind(this);
-    this.switchBoard = this.switchBoard.bind(this);
-    this.updateThread = this.updateThread.bind(this);
-    this.deleteToggle = this.deleteToggle.bind(this);
-    this.replyToggle = this.replyToggle.bind(this);
+    this.getCurrentBoard  =  this.getCurrentBoard.bind(this);
+    this.pushThread       =  this.pushThread.bind(this);
+    this.popThread        =  this.popThread.bind(this);
+    this.setBoard         =  this.setBoard.bind(this);
+    this.switchBoard      =  this.switchBoard.bind(this);
+    this.updateThread     =  this.updateThread.bind(this);
+    this.deleteToggle     =  this.deleteToggle.bind(this);
+    this.replyToggle      =  this.replyToggle.bind(this);
+    this.flagThread       =  this.flagThread.bind(this);
   }
   componentWillMount()
   {
@@ -78,6 +79,10 @@ export default class App extends React.Component{
                      deleting: false, deletingTo: undefined});
     else
       this.setState({replying: false, replyingTo: undefined});
+  }
+  flagThread()
+  {
+    
   }
   getCurrentBoard(board)
   {

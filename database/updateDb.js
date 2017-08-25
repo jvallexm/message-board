@@ -119,6 +119,10 @@ const UpdateDb =
       });     
    },
     
+   flag: (url, data, func)=>{
+       
+   },
+       
    test: ()=>{
        console.log("db module test");
    }    

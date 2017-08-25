@@ -3,6 +3,7 @@
 var UpdateDb = require('../database/updateDb.js');
 
 const Replies = {
+    
     getThread: (req,res,url)=>{
          let boards = {boards: [req.params.board]};
          console.log("original url: " + req.originalUrl);
@@ -30,6 +31,8 @@ const Replies = {
              },true);
          }     
       }
+      
+      
 };
 
 module.exports = Replies;
