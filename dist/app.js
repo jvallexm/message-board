@@ -16799,16 +16799,19 @@ var App = function (_React$Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
-      var urlHere = window.location.href.split('/');
-      if (urlHere.indexOf('board') != -1) {
-        this.setState({ currentBoardName: urlHere[urlHere.length - 1] });
-      }
       socket.emit('need boards', { boards: this.state.getBoards });
       socket.on("send boards", function (data) {
+        var urlHere = window.location.href.split('/');
+        var whichBoard = _this2.state.currentBoardName;
+        if (urlHere.indexOf('board') != -1) {
+          console.log("urlHere " + urlHere);
+          console.log("trying to get board " + urlHere[urlHere.length - 2]);
+          whichBoard = urlHere[urlHere.length - 2];
+        }
         console.log("getting boards from server..");
         //console.log(data.boards);
-        _this2.setState({ boards: data.boards });
-        _this2.getCurrentBoard();
+        _this2.setState({ boards: data.boards, currentBoardName: whichBoard });
+        _this2.getCurrentBoard(whichBoard);
       });
       socket.on("send thread", function (data) {
         _this2.pushThread(data.board, data.thread, false);
@@ -16837,9 +16840,9 @@ var App = function (_React$Component) {
   }, {
     key: 'getCurrentBoard',
     value: function getCurrentBoard(board) {
-      console.log("getting current board");
       var whichBoard = this.state.currentBoardName;
       if (board != undefined) whichBoard = board;
+      console.log("getting current board " + whichBoard);
       for (var i = 0; i < this.state.boards.length; i++) {
         if (this.state.boards[i]._id == whichBoard) {
           var currentBoard = this.state.boards[i];
@@ -17116,7 +17119,7 @@ var ShownBoard = function (_React$Component) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'button',
-            { className: 'btn thread-head board-head from-top',
+            { className: 'btn thread-head board-head from-top new-thread-button',
               onClick: this.props.grayOut },
             'New Thread'
           ),

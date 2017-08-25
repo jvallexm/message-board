@@ -33,17 +33,20 @@ export default class App extends React.Component{
   }
   componentWillMount()
   {
-    var urlHere = window.location.href.split('/');
-    if(urlHere.indexOf('board')!=-1)
-    {
-      this.setState({currentBoardName: urlHere[urlHere.length-1]});
-    }
     socket.emit('need boards', {boards: this.state.getBoards});
     socket.on("send boards",(data)=>{
+      var urlHere = window.location.href.split('/');
+      let whichBoard = this.state.currentBoardName;
+      if(urlHere.indexOf('board')!=-1)
+      {
+        console.log("urlHere " + urlHere);
+        console.log("trying to get board " + urlHere[urlHere.length-2]);
+        whichBoard = urlHere[urlHere.length-2];
+      }
       console.log("getting boards from server..");
       //console.log(data.boards);
-      this.setState({boards: data.boards});
-      this.getCurrentBoard();
+      this.setState({boards: data.boards, currentBoardName: whichBoard});
+      this.getCurrentBoard(whichBoard);
     });
     socket.on("send thread",(data)=>{
       this.pushThread(data.board,data.thread,false);
@@ -75,10 +78,10 @@ export default class App extends React.Component{
   }
   getCurrentBoard(board)
   {
-    console.log("getting current board");
     let whichBoard = this.state.currentBoardName;
     if(board != undefined)
       whichBoard = board;
+    console.log("getting current board " + whichBoard);  
     for(let i=0;i<this.state.boards.length;i++)
     {
       if(this.state.boards[i]._id == whichBoard)

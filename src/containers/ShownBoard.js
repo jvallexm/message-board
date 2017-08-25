@@ -23,7 +23,7 @@ export default class ShownBoard extends React.Component{
               <h1>{this.props.board.name}</h1>
             </div>  
             </center>
-            <button className="btn thread-head board-head from-top"
+            <button className="btn thread-head board-head from-top new-thread-button"
                     onClick={this.props.grayOut}>
               New Thread
             </button>

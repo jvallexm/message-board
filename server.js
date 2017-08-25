@@ -11,6 +11,8 @@ var helmet = require('helmet');
 const server = app
   .use(helmet())
   .use(express.static(__dirname))
+  .use('/api/?',express.static(__dirname))
+  .use('/board/:board/',express.static(__dirname))
   .listen(process.env.PORT, () => console.log(`Listening on ${ process.env.PORT }`));
 
 const io = require('socket.io')(server);
