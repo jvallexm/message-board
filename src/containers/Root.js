@@ -166,7 +166,7 @@ export default class App extends React.Component{
     this.setBoard(board);
     this.getCurrentBoard(board);
   }
-  updateThread(board,thread,isNew)
+  updateThread(board,thread,isNew,isFlagged)
   {
     let boards = this.state.boards;
     let index = 0;
@@ -179,7 +179,8 @@ export default class App extends React.Component{
     {
       if(thread._id == boards[index].threads[j]._id)
       {
-        thread.bumped_on = Math.round((new Date()).getTime() / 1000);
+        if(!isFlagged)
+          thread.bumped_on = Math.round((new Date()).getTime() / 1000);
         boards[index].threads[j] = thread;
       }  
     }

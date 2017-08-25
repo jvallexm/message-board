@@ -11296,7 +11296,7 @@ var Flag = function (_React$Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: this.props.post.flagged ? "fa fa-flag red" : "fa fa-flag flag-this",
                 title: this.props.post.flagged ? "This post has been flagged for removal." : "Flag this post as inappropriate",
-                onClick: this.props.post.flagged ? "" : "" });
+                onClick: this.props.post.flagged ? "" : this.props.flag });
         }
     }]);
 
@@ -16975,7 +16975,7 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'updateThread',
-    value: function updateThread(board, thread, isNew) {
+    value: function updateThread(board, thread, isNew, isFlagged) {
       var boards = this.state.boards;
       var index = 0;
       for (var i = 0; i < boards.length; i++) {
@@ -16983,7 +16983,7 @@ var App = function (_React$Component) {
       }
       for (var j = 0; j < boards[index].threads.length; j++) {
         if (thread._id == boards[index].threads[j]._id) {
-          thread.bumped_on = Math.round(new Date().getTime() / 1000);
+          if (!isFlagged) thread.bumped_on = Math.round(new Date().getTime() / 1000);
           boards[index].threads[j] = thread;
         }
       }
@@ -17288,7 +17288,10 @@ var ShowReplies = function (_React$Component) {
                 'span',
                 null,
                 ' ',
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__HandleFlag_js__["a" /* default */], { post: d }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__HandleFlag_js__["a" /* default */], { post: d,
+                  flag: function flag() {
+                    return _this2.props.flagPost(d, 1);
+                  } }),
                 ' '
               ),
               _this2.props.parseDate(d.posted_on),
@@ -17335,7 +17338,10 @@ var ShowReplies = function (_React$Component) {
                     'span',
                     null,
                     ' ',
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__HandleFlag_js__["a" /* default */], { post: dd }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__HandleFlag_js__["a" /* default */], { post: dd,
+                      flag: function flag() {
+                        return _this2.props.flagPost(dd, 2);
+                      } }),
                     ' '
                   ),
                   _this2.props.parseDate(dd.posted_on),
@@ -17423,6 +17429,7 @@ var Thread = function (_React$Component) {
       deletingTo: undefined
     };
     _this.deletePost = _this.deletePost.bind(_this);
+    _this.flagPost = _this.flagPost.bind(_this);
     _this.getReplies = _this.getReplies.bind(_this);
     _this.parseDate = _this.parseDate.bind(_this);
     _this.pushReply = _this.pushReply.bind(_this);
@@ -17430,6 +17437,34 @@ var Thread = function (_React$Component) {
   }
 
   _createClass(Thread, [{
+    key: 'flagPost',
+    value: function flagPost(flagging, root) {
+      console.log("trying to delete post.. " + root);
+      if (root == 0) {
+        flagging.flagged = true;
+        //this.props.clearAll();
+        this.props.updateThread(this.props.currentBoard, flagging, true, true);
+      }
+      if (root == 1) {
+        var thread = this.props.thread;
+        for (var i = 0; i < thread.replies.length; i++) {
+          if (thread.replies[i]._id == flagging._id) thread.replies[i].flagged = true;
+        }
+        //this.props.clearAll();
+        this.props.updateThread(this.props.currentBoard, thread, true, true);
+      }
+      if (root == 2) {
+        var _thread = this.props.thread;
+        for (var _i = 0; _i < _thread.replies.length; _i++) {
+          for (var j = 0; j < _thread.replies[_i].replies.length; j++) {
+            if (_thread.replies[_i].replies[j]._id == flagging._id) _thread.replies[_i].replies[j].flagged = true;
+          }
+        }
+        //this.props.clearAll();
+        this.props.updateThread(this.props.currentBoard, _thread, true, true);
+      }
+    }
+  }, {
     key: 'getReplies',
     value: function getReplies() {
       var replies = this.props.thread.replies.length;
@@ -17485,20 +17520,20 @@ var Thread = function (_React$Component) {
         this.props.updateThread(this.props.currentBoard, thread, true);
       }
       if (root == 2) {
-        var _thread = this.props.thread;
-        for (var _i = 0; _i < _thread.replies.length; _i++) {
+        var _thread2 = this.props.thread;
+        for (var _i2 = 0; _i2 < _thread2.replies.length; _i2++) {
           var _newReplies = [];
           //console.log("old replies");
           //console.log(thread.replies[i].replies);
           //console.log("deletingTo _id: " + deletingTo._id);
-          for (var j = 0; j < _thread.replies[_i].replies.length; j++) {
-            if (_thread.replies[_i].replies[j]._id != deletingTo._id) _newReplies.push(_thread.replies[_i].replies[j]);
+          for (var j = 0; j < _thread2.replies[_i2].replies.length; j++) {
+            if (_thread2.replies[_i2].replies[j]._id != deletingTo._id) _newReplies.push(_thread2.replies[_i2].replies[j]);
           }
           //console.log("New replies: " + newReplies.length)
-          _thread.replies[_i].replies = _newReplies;
+          _thread2.replies[_i2].replies = _newReplies;
         }
         this.props.clearAll();
-        this.props.updateThread(this.props.currentBoard, _thread, true, false);
+        this.props.updateThread(this.props.currentBoard, _thread2, true, false);
       }
     }
   }, {
@@ -17539,7 +17574,10 @@ var Thread = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
               { className: 'col-md-1 middle-text col-right' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__HandleFlag_js__["a" /* default */], { post: this.props.thread })
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__HandleFlag_js__["a" /* default */], { post: this.props.thread,
+                flag: function flag() {
+                  return _this2.flagPost(_this2.props.thread, 0);
+                } })
             )
           )
         ),
@@ -17566,7 +17604,10 @@ var Thread = function (_React$Component) {
                 'span',
                 null,
                 ' ',
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__HandleFlag_js__["a" /* default */], { post: this.props.thread }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__HandleFlag_js__["a" /* default */], { post: this.props.thread,
+                  flag: function flag() {
+                    return _this2.flagPost(_this2.props.thread, 0);
+                  } }),
                 ' '
               ),
               this.parseDate(this.props.thread.posted_on),
@@ -17613,7 +17654,8 @@ var Thread = function (_React$Component) {
               deleteToggle: this.props.deleteToggle,
               deleting: this.props.deleting,
               deletingTo: this.props.deletingTo,
-              deletePost: this.deletePost })
+              deletePost: this.deletePost,
+              flagPost: this.flagPost })
           )
         )
       );

@@ -15,9 +15,45 @@ export default class Thread extends React.Component{
       deletingTo  : undefined
     };
     this.deletePost = this.deletePost.bind(this);
+    this.flagPost   = this.flagPost.bind(this);
     this.getReplies = this.getReplies.bind(this);
     this.parseDate  = this.parseDate.bind(this);
     this.pushReply  = this.pushReply.bind(this);
+  }
+  flagPost(flagging,root)
+  {
+    console.log("trying to delete post.. " + root);
+    if(root==0)
+    {
+      flagging.flagged = true;
+      //this.props.clearAll();
+      this.props.updateThread(this.props.currentBoard, flagging, true, true);
+    }
+    if(root==1)
+    {
+      let thread = this.props.thread;
+      for(let i=0;i<thread.replies.length;i++)
+      {
+        if(thread.replies[i]._id == flagging._id) 
+          thread.replies[i].flagged = true;
+      }
+      //this.props.clearAll();
+      this.props.updateThread(this.props.currentBoard, thread, true, true);
+    }
+    if(root==2)
+    {
+      let thread = this.props.thread;
+      for(let i=0;i<thread.replies.length;i++)
+      {
+        for(let j=0;j<thread.replies[i].replies.length;j++)
+        {
+          if(thread.replies[i].replies[j]._id == flagging._id)
+            thread.replies[i].replies[j].flagged = true;
+        }
+      }
+      //this.props.clearAll();
+      this.props.updateThread(this.props.currentBoard, thread, true, true);
+    }
   }
   getReplies()
   {
@@ -124,7 +160,8 @@ export default class Thread extends React.Component{
                     <span> {this.getReplies()} <i className="fa fa-comments" /></span>
                   </div>
                   <div className="col-md-1 middle-text col-right">
-                    <Flag post = {this.props.thread} />
+                    <Flag post = {this.props.thread} 
+                          flag = {()=>this.flagPost(this.props.thread, 0)}/>
                   </div>  
              </div>
           </div>  
@@ -138,7 +175,8 @@ export default class Thread extends React.Component{
                    </div>  
             </div>
              <div className="smol">
-               <span> <Flag post = {this.props.thread} /> </span>
+               <span> <Flag post  = {this.props.thread} 
+                             flag = {()=>this.flagPost(this.props.thread, 0)}/> </span>
                   {this.parseDate(this.props.thread.posted_on)}
                <span className="red"
                      onClick={()=>this.props.deleteToggle(this.props.thread)}> Delete </span>
@@ -158,24 +196,25 @@ export default class Thread extends React.Component{
              {
               this.props.deleting && this.props.deletingTo._id == this.props.thread._id 
               ?
-              <HandleDelete toDelete={this.props.thread}
-                            deleteToggle={()=>this.props.deleteToggle(this.props.thread)}
-                            deletePost={()=>this.deletePost(this.props.thread,0)}/>
+              <HandleDelete toDelete     = {this.props.thread}
+                            deleteToggle = {()=>this.props.deleteToggle(this.props.thread)}
+                            deletePost   = {()=>this.deletePost(this.props.thread,0)}/>
               :
               ""
              }
           </div>
           <div className="replies">
-            <ShowReplies replies={this.props.thread.replies} 
-                         replyToggle={this.props.replyToggle}
-                         replying={this.props.replying}
-                         replyingTo={this.props.replyingTo}
-                         pushReply={this.pushReply}
-                         parseDate={this.parseDate}
-                         deleteToggle={this.props.deleteToggle}
-                         deleting={this.props.deleting}
-                         deletingTo={this.props.deletingTo} 
-                         deletePost={this.deletePost}/>
+            <ShowReplies replies      = {this.props.thread.replies} 
+                         replyToggle  = {this.props.replyToggle}
+                         replying     = {this.props.replying}
+                         replyingTo   = {this.props.replyingTo}
+                         pushReply    = {this.pushReply}
+                         parseDate    = {this.parseDate}
+                         deleteToggle = {this.props.deleteToggle}
+                         deleting     = {this.props.deleting}
+                         deletingTo   = {this.props.deletingTo} 
+                         deletePost   = {this.deletePost}
+                         flagPost     = {this.flagPost}/>
           </div>  
         </div>
       </div>   

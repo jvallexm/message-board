@@ -23,7 +23,8 @@ export default class ShowReplies extends React.Component{
                  key = {d + " " + i}>
               {d.text}
               <div className="smol">
-                <span> <Flag post={d} /> </span>
+                <span> <Flag post = {d} 
+                             flag = {()=>this.props.flagPost(d, 1)}/> </span>
                   {this.props.parseDate(d.posted_on)}                
                 <span className="red"
                       onClick={()=>this.props.deleteToggle(d)}> Delete</span>
@@ -31,22 +32,26 @@ export default class ShowReplies extends React.Component{
                       onClick={()=>this.props.replyToggle(d)}> Reply</span>
               </div>
               {this.props.replying && this.props.replyingTo._id == d._id?
-               <PostReply pushReply={this.props.pushReply}
-                          root={false}
-                          replyToggle={()=>this.props.replyToggle(d)}
-                          replyingTo={d}/>
+              
+               <PostReply pushReply   =  {this.props.pushReply}
+                          root        =  {false}
+                          replyToggle =  {()=>this.props.replyToggle(d)}
+                          replyingTo  =  {d}/>
               :""}
               {this.props.deleting && this.props.deletingTo._id == d._id?
-               <HandleDelete toDelete={d}
-                             deleteToggle={()=>this.props.deleteToggle(d)}
-                             deletePost={()=>this.props.deletePost(d,1)}/>
+              
+               <HandleDelete toDelete     = {d}
+                             deleteToggle = {()=>this.props.deleteToggle(d)}
+                             deletePost   = {()=>this.props.deletePost(d,1)}/>
+                             
               :""}                    
               {d.replies.map((dd,i)=>
                       <div className="text-left reply"
                            key={d.name + "reply" + i}>
                         {dd.text}
                           <div className="smol">
-                            <span> <Flag post={dd} /> </span>
+                            <span> <Flag post = {dd} 
+                                         flag = {()=>this.props.flagPost(dd, 2)}/> </span>
                               {this.props.parseDate(dd.posted_on)}  
                             <span className="red"
                                   onClick={()=>this.props.deleteToggle(dd)}> Delete</span>
