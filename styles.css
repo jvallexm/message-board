@@ -1,172 +1,283 @@
 nav{
-  background-color: #1D3557;
-  color: white;
-  padding: 10px;
-  box-shadow: 0px 1px 1px #F1FAEE;
-  font-family: "Courgette";
+  
+  background-color  : #1D3557;
+  color             : white;
+  padding           : 10px;
+  box-shadow        : 0px 1px 1px #F1FAEE;
+  font-family       : "Courgette";
+  
 }
+
 body{
-  background-color: #A8DADC;
+  
+  background-color  : #A8DADC;
 }
+
 .middle-text{
-  display: flex;
-  justify-content: center;
-  flex-direction: column; 
+  
+  display           : flex;
+  justify-content   : center;
+  flex-direction    : column; 
+  
 }
+
 .header{
-  margin-bottom: -5px;
+  
+  margin-bottom     : -5px;
+  
 }
+
 .board{
-  padding: 10px;
+  
+  padding           : 10px;
+  
+  
 }
 .board-head{
-  max-width: 500px;
-  font-family: "Courgette";
-  color: white;
-  text-shadow: 1px 1px 1px black;
-  box-shadow: 2px 2px 2px #F1FAEE;
-  border-radius: 5px !important;
+  
+  max-width         : 500px;
+  font-family       : "Courgette";
+  color             : white;
+  text-shadow       : 1px 1px 1px black;
+  box-shadow        : 2px 2px 2px #F1FAEE;
+  border-radius     : 5px !important;
+  
 }
+
 .thread-head{
-  background-color: #1D3557;
-  padding: 6px;
-  border-radius: 5px;
+  
+  background-color  : #1D3557;
+  padding           : 6px;
+  border-radius     : 5px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  font-family: "Courgette"; 
-  font-size: 125%;
-  text-shadow: 1px 1px 1px black;
-  color: white;
+  font-family       : "Courgette"; 
+  font-size         : 125%;
+  text-shadow       : 1px 1px 1px black;
+  color             : white;
+  
 }
+
 .thread{
-  padding: 3px;
-  margin: 10px;
-  border-radius: 5px;
-  background-color: #F1FAEE;
+  
+  padding           : 3px;
+  margin            : 10px;
+  border-radius     : 5px;
+  background-color  : #F1FAEE;
+  
 }
+
 .fifth-color{
-  color: #FF1654;
+  
+  color             : #FF1654;
+  
 }
+
 #app{
-  max-width: 700px;
+  
+  max-width         : 700px;
+  
 }
+
 .smol{
-  font-size: 55%;
+  
+  font-size         : 55%;
+  
 }
+
 .lil{
-  font-size: 75%;
+  
+  font-size         : 75%;
+  
 }
+
 .reply
 {
-  margin-left: 20px;
+  
+  margin-left       : 20px;
+  
 }
+
 .red
 {
-  color: #E63946;
-  cursor: pointer; cursor: hand;
+  
+  color             : #E63946;
+  cursor            : pointer; 
+  cursor            : hand;
+  
 }
+
 .blue
 {
-  color: blue;
-  cursor: pointer; cursor: hand;
+  
+  color             : blue;
+  cursor            : pointer; 
+  cursor            : hand;
+  
 }
+
 .replies{
-  padding: 3px;
+  
+  padding           : 3px;
+  
 }
+
 .from-top
 {
-  margin-top: 10px;
+  
+  margin-top        : 10px;
+  
 }
+
 #gray-out
 {
-  top: 0px;
-  left: 0px;
-  z-index: 2;
-  position: fixed;
-  background-color: rgba(200, 200, 200, .72);
-  height: 100%;
-  min-width:100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;  
+  
+  top               : 0px;
+  left              : 0px;
+  z-index           : 2;
+  position          : fixed;
+  background-color  : rgba(200, 200, 200, .72);
+  height            : 100%;
+  min-width         : 100%;
+  display           : flex;
+  justify-content   : center;
+  flex-direction    : column;  
+  
 }
+
 .new-thread
 {
-  width: 600px;
+  
+  width             : 600px;
+  
 }
+
 .width-100{
-  width: 100%;
-  text-align: center;
+  
+  width             : 100%;
+  text-align        : center;
+  
 }
+
 .col-left{
-  margin-right: 0px;
-  padding-right: 0px;
+  
+  margin-right      : 0px;
+  padding-right     : 0px;
+
 }
+
 .col-right{
-  margin-left: 0px;
-  padding-left: 0px;
+  
+  margin-left       : 0px;
+  padding-left      : 0px;
+  
 }
+
 textarea
 {
-  margin-top: 6px;
+  
+  margin-top        : 6px;
+  
 }
+
 .cancel
 {
-  background-color: #E63946 !important;
-  color: white;
+  
+  background-color  : #E63946 !important;
+  color             : white;
+  
 }
+
 .error{
-  font-weight: bold;
+  
+  font-weight       : bold;
+  
 }
+
 .lefty{
-  text-align: left;
+  
+  text-align        : left;
+  
 }
+
 .post{
-  padding-left: 5px !important;
+  
+  padding-left      : 5px !important;
+  
 }
+
 .btn-smol{
-  height: 19px;
-  padding: 0 !important;
-  border: solid 1px;
-  border-color: rgb(169,169,169);
-  border-radius: 0px;
+  
+  height            : 19px;
+  padding           : 0 !important;
+  border            : solid 1px;
+  border-color      : rgb(169,169,169);
+  border-radius     : 0px;
+  
 }
+
 .lil-space{
-  margin-left: 5px;
+  
+  margin-left       : 5px;
+  
 }
+
 .img-reg{
-  min-width: 200px;
-  height: 200px;
-  border-radius: 10px;
-  padding: 5px;
-  padding-left: 0px !important;
-  float: left;
+  min-width         : 200px;
+  height            : 200px;
+  border-radius     : 10px;
+  padding           : 5px;
+  padding-left      : 0px !important;
+  float             : left;
 }
+
 /* Source: http://snipplr.com/view/10979/css-cross-browser-word-wrap */
 .wordwrap { 
-   white-space: pre-wrap;      /* CSS3 */   
-   white-space: -moz-pre-wrap; /* Firefox */    
-   white-space: -pre-wrap;     /* Opera <7 */   
-   white-space: -o-pre-wrap;   /* Opera 7 */    
-   word-wrap: break-word;      /* IE */
-   min-height: 200px;
+  
+   white-space      : pre-wrap;      /* CSS3 */   
+   white-space      : -moz-pre-wrap; /* Firefox */    
+   white-space      : -pre-wrap;     /* Opera <7 */   
+   white-space      : -o-pre-wrap;   /* Opera 7 */    
+   word-wrap        : break-word;      /* IE */
+   min-height       : 200px;
+   
 }
+
 .pointer{
-  cursor: pointer; cursor: hand;
+  
+  cursor            : pointer; 
+  cursor            : hand;
+  
 }
+
 .btn{
-  cursor: pointer; cursor: hand;
+  
+  cursor            : pointer; 
+  cursor            : hand;
+  
 }
+
 .gray{
-  color: gray;
+  
+  color             : gray;
+  
 }
+
 .post-from-top{
-  margin-top: 30px;
-  margin-bottom: 10px;
+  
+  margin-top        : 30px;
+  margin-bottom     : 10px;
+  
 }
+
 .new-thread-button{
-  margin-bottom:10px;
+  
+  margin-bottom     : 10px;
+  
 }
+
 .flag-this:hover{
-  color: #E63946;
+  
+  color             : #E63946;
+  
 }

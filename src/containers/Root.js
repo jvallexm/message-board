@@ -9,6 +9,7 @@ export default class App extends React.Component{
   {
     super(props);
     this.state = {
+      
       boards            : [],
       currentBoardName  : "b",
       currentBoard      : undefined,
@@ -21,6 +22,7 @@ export default class App extends React.Component{
       deleting          : false,
       deletingTo        : undefined,
       admin             : false
+      
     };
     this.getCurrentBoard  =  this.getCurrentBoard.bind(this);
     this.pushThread       =  this.pushThread.bind(this);
@@ -36,18 +38,18 @@ export default class App extends React.Component{
   {
     socket.emit('need boards', {boards: this.state.getBoards});
     socket.on("send boards",(data)=>{
-      var urlHere = window.location.href.split('/');
-      let whichBoard = this.state.currentBoardName;
-      if(urlHere.indexOf('board')!=-1)
-      {
-        console.log("urlHere " + urlHere);
-        console.log("trying to get board " + urlHere[urlHere.length-2]);
-        whichBoard = urlHere[urlHere.length-2];
-      }
-      console.log("getting boards from server..");
-      //console.log(data.boards);
-      this.setState({boards: data.boards, currentBoardName: whichBoard});
-      this.getCurrentBoard(whichBoard);
+        var urlHere = window.location.href.split('/');
+        let whichBoard = this.state.currentBoardName;
+        if(urlHere.indexOf('board')!=-1)
+        {
+          console.log("urlHere " + urlHere);
+          console.log("trying to get board " + urlHere[urlHere.length-2]);
+          whichBoard = urlHere[urlHere.length-2];
+        }
+        console.log("getting boards from server..");
+        //console.log(data.boards);
+        this.setState({boards: data.boards, currentBoardName: whichBoard});
+        this.getCurrentBoard(whichBoard);
     });
     socket.on("send thread",(data)=>{
       this.pushThread(data.board,data.thread,false);
@@ -65,20 +67,28 @@ export default class App extends React.Component{
   deleteToggle(deletingTo)
   {
     console.log("toggling delete");
+    
     if(!this.state.deleting || deletingTo != this.state.deletingTo)
-      this.setState({replying: false, replyingTo: undefined,
-                     deleting: true, deletingTo: deletingTo});
+      this.setState( { replying   : false, 
+                       replyingTo : undefined,
+                       deleting   : true, 
+                       deletingTo : deletingTo } );
     else
-      this.setState({deleting: false, deletingTo: undefined,
-                     replying: false, replyingTo: undefined});
+      this.setState( { deleting   : false, 
+                       deletingTo : undefined,
+                       replying   : false, 
+                       replyingTo : undefined } );
   }
   replyToggle(replyingTo)
   {
     if(!this.state.replying || replyingTo != this.state.replyingTo)
-      this.setState({replying: true, replyingTo: replyingTo,
-                     deleting: false, deletingTo: undefined});
+      this.setState( { replying   : true, 
+                       replyingTo : replyingTo,
+                       deleting   : false, 
+                       deletingTo : undefined } );
     else
-      this.setState({replying: false, replyingTo: undefined});
+      this.setState( { replying   : false, 
+                       replyingTo : undefined } );
   }
   flagThread()
   {
@@ -203,33 +213,39 @@ export default class App extends React.Component{
           <div id="gray-out">
             <div className="text-center container-fluid new-thread">
               {!this.state.lockedOut?
-              <NewThread cancel={()=>this.setState({gray: false})}
-                         pushThread={this.pushThread}
-                         board={this.state.currentBoardName}/>
+              <NewThread cancel      = { ()=>this.setState( {gray: false} ) }
+                         pushThread  = { this.pushThread }
+                         board       = { this.state.currentBoardName }/>
               :""}  
             </div>                
           </div> : ""}  
-        <NavBar boards={this.state.boards}
-                switchBoard={this.switchBoard}
-                board={this.state.currentBoardName} />
+          
+        <NavBar boards       = { this.state.boards }
+                switchBoard  = { this.switchBoard }
+                board        = { this.state.currentBoardName } />
+                
         {this.state.boards.length > 0 && this.state.currentBoard != undefined ?
-          <div id='app' className="text-center container-fluid">     
-          <ShownBoard board={this.state.currentBoard}
-                      grayOut={()=>this.setState({gray: true})}
-                      updateThread={this.updateThread}
-                      lockedOut={this.state.lockedOut}
-                      lock={()=>this.setState({lockedOut: true})}
-                      popThread={this.popThread}
-                      currentBoard={this.state.currentBoardName}
-                      replyToggle = {this.replyToggle}
-                      deleteToggle = {this.deleteToggle}
-                      replying = {this.state.replying}
-                      replyingTo = {this.state.replyingTo}
-                      deleting = {this.state.deleting}
-                      deletingTo = {this.state.deletingTo}
-                      repliesOff={()=>this.setState({replyingTo: undefined, replying: false})}
-                      clearAll={()=>this.setState({replyingTo: undefined, replying: false,
-                                                   deletingTo: undefined, deleting: false})}/>
+          <div id='app' className="text-center container-fluid">  
+          
+          <ShownBoard board         = { this.state.currentBoard }
+                      grayOut       = { ()=>this.setState( {gray: true} ) }
+                      updateThread  = { this.updateThread }
+                      lockedOut     = { this.state.lockedOut }
+                      lock          = { ()=>this.setState( {lockedOut: true} ) }
+                      popThread     = { this.popThread }
+                      currentBoard  = { this.state.currentBoardName }
+                      replyToggle   = { this.replyToggle }
+                      deleteToggle  = { this.deleteToggle }
+                      replying      = { this.state.replying }
+                      replyingTo    = { this.state.replyingTo }
+                      deleting      = { this.state.deleting }
+                      deletingTo    = { this.state.deletingTo }
+                      repliesOff    = { ()=>this.setState( { replyingTo  : undefined, 
+                                                             replying    : false      } ) } 
+                      clearAll      = { ()=>this.setState( { replyingTo  : undefined, 
+                                                             replying    : false,
+                                                             deletingTo  : undefined, 
+                                                             deleting    : false      } ) } />
          </div>
         : "Loading..."} 
       </div>  
