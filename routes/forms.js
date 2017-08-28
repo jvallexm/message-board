@@ -1,7 +1,8 @@
 'use strict';
 
-$( ".thread-form" ).submit((e)=>{  
+$( ".form-form" ).submit((e)=>{  
   console.log(e.target.id);
+  console.log(e.target.name);
   let type = 'PUT';
   if(e.target.name == 'POST')
       type = 'POST';
@@ -18,5 +19,4 @@ $( ".thread-form" ).submit((e)=>{
      url  : "/api/threads/" + obj.board, 
      data : obj
   });
-  //event.preventDefault();
 });

@@ -36,7 +36,24 @@ const Thread = {
              }
              res.send(sorted);
          },true);
-      }
+      },
+      
+    pushThread: (url,req,res,io)=>{
+        let newThread = req.body;
+         newThread.posted_on = Math.round((new Date()).getTime() / 1000);
+         newThread.bumped_on = Math.round((new Date()).getTime() / 1000);
+         newThread._id = Math.round((new Date()).getTime() / 1000);
+         newThread.replies = [];
+         newThread.flagged = false;
+         newThread.name = newThread.thread_name;
+         console.log(newThread);
+         console.log("Thread POST request to " + req.params.board);
+         UpdateDb.pushThread(url,{board: newThread.board,thread: newThread},()=>{
+             res.redirect('/');
+             io.sockets.emit("send thread", newThread);
+         });
+         
+    }  
 }
 
 module.exports = Thread;

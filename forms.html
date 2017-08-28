@@ -12,7 +12,7 @@
   <body>
        <div>
   <h4>Post a New Thread</h4>  
-  <form class="form" id="post-thread">
+  <form class="form-form" id="post-thread" name="POST" action="/">
     <div class ="row">
       <div class ="col-sm-3">
         Board: 
@@ -32,7 +32,7 @@
         Title: 
       </div>  
       <div class = "col-sm-9">
-        <input required='' name="name" 
+        <input name="thread_name" required=''
                class="width100" placeholder="Thread Title" type="text"/>
       </div>
     </div>
@@ -54,7 +54,7 @@
                placeholder="delete key" type="text"/>
       </div>
     </div> 
-    <button type = "submit" value = "Go" class = "width100">Submit</button>
+    <button type = "submit" value = "submit" class = "width100">Submit</button>
   </form>  
 </div>
   </body>

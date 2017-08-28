@@ -20,13 +20,7 @@ module.exports = (app,io,socket,url) => {
      })
      .post((req,res)=>{
          
-         let newThread = req.body;
-         newThread.posted_on = Math.round((new Date()).getTime() / 1000);
-         newThread.bumped_on = Math.round((new Date()).getTime() / 1000);
-         newThread._id = Math.round((new Date()).getTime() / 1000);
-         console.log(newThread);
-         console.log("Thread POST request to " + req.params.board);
-         res.redirect('/');
+         Thread.pushThread(url,req,res,io);
          
      })
      .put((req,res)=>{
