@@ -10,20 +10,32 @@
   <link href="/styles.css" rel="stylesheet" type="text/css">
   <link href="/form.css" rel="stylesheet" type="text/css">
   <body>
-       <div>
-  <h4>Post a New Thread</h4>  
-  <form class="form-form" id="post-thread" name="POST" action="/">
-    <div class ="row">
+    
+   <nav class="text-center container-fluid">
+        <div class="row">
+           <div class="col-lg-6 middle-text">
+               A Message Board For Nice People
+           </div>
+           <div class="col-lg-6 middle-text">
+             <span><a href="/board/c">Compliments</a> / <a href="/board/d">DnD</a> / <a href="/board/m">Memes</a> / <a href="/board/p">Pop Punk</a> / <a href="/board/b">Random</a></span>
+           </div>  
+        </div>  
+  </nav>  
+      
+  <div>
+  <!--- Form to  post new threads -->
+  
+  <form class="form-form" id="post-thread" name="POST">
+    <div class = "row">
+      <div class = "col-sm-12 text-center"> <h4>Post a New Thread</h4> </div>
+    </div>
+    <div class = "row">
       <div class ="col-sm-3">
         Board: 
       </div>  
       <div class = "col-sm-9">
         <select required='' class="width100" name="board">
-          <option>b</option>
-          <option>c</option>
-          <option>m</option>
-          <option>p</option>
-          <option>r</option>
+          <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
         </select>
       </div>
     </div>
@@ -56,6 +68,35 @@
     </div> 
     <button type = "submit" value = "submit" class = "width100">Submit</button>
   </form>  
+  
+    <form class="form-form" id="report-thread" name="PUT">
+    <div class = "row">
+      <div class = "col-sm-12 text-center">
+          <h4>Report a Thread</h4>  
+      </div>
+    </div>
+    <div class = "row">
+      <div class ="col-sm-3">
+        Board: 
+      </div>  
+      <div class = "col-sm-9">
+        <select required='' class="width100" name="board">
+          <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
+        </select>
+      </div>
+    </div>
+    <div class = "row">
+      <div class ="col-sm-3">
+        Thread ID: 
+      </div>  
+      <div class = "col-sm-9">
+        <input name="thread_id" required=''
+               class="width100" placeholder="Thread ID" type="text"/>
+      </div>
+    </div>
+    <button type = "submit" value = "submit" class = "width100">Submit</button>
+  </form>  
+  
 </div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

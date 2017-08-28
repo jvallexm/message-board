@@ -1,6 +1,7 @@
 'use strict';
 
 $( ".form-form" ).submit((e)=>{  
+ event.preventDefault(); 
   console.log(e.target.id);
   console.log(e.target.name);
   let type = 'PUT';
@@ -9,7 +10,7 @@ $( ".form-form" ).submit((e)=>{
   if(e.target.name == 'DELETE')
       type = 'DELETE';
   let arr  = $('#' + e.target.id).serializeArray();
-  let obj  = {board: "b"};
+  let obj  = {};
   $.each(arr,(i,input)=>{
      obj[input.name] = input.value;
   });
@@ -19,4 +20,6 @@ $( ".form-form" ).submit((e)=>{
      url  : "/api/threads/" + obj.board, 
      data : obj
   });
+  
+  
 });

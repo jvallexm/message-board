@@ -17603,7 +17603,11 @@ var Thread = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
               null,
-              this.props.thread.attachment != undefined && this.props.thread.attachment != "" ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'img-reg', src: this.props.thread.attachment }) : "",
+              this.props.thread.attachment != undefined && this.props.thread.attachment != "" ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'img-reg',
+                src: this.props.thread.attachment,
+                onClick: function onClick() {
+                  return window.open(_this2.props.thread.attachment);
+                } }) : "",
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: this.props.thread.attachment != undefined ? "wordwrap" : "" },

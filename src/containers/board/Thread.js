@@ -169,7 +169,9 @@ export default class Thread extends React.Component{
           <div className="text-left">
             <div>
               {this.props.thread.attachment != undefined && this.props.thread.attachment != "" ?
-              <img className="img-reg" src={this.props.thread.attachment}/> : ""}
+              <img className="img-reg" 
+                   src={this.props.thread.attachment}
+                   onClick={()=>window.open(this.props.thread.attachment)}/> : ""}
                    <div className={this.props.thread.attachment != undefined ? "wordwrap" : ""}>
                     {this.props.thread.text}
                    </div>  

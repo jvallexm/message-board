@@ -120,7 +120,21 @@ const UpdateDb =
    },
     
    flag: (url, data, func)=>{
-       
+        MongoClient.connect(url, (err,db)=>{
+         if(err)
+           console.log(err);
+         else
+         {
+             var updateThis = db.collection(data.board);
+             var updateOne = () => {
+                 console.log("flagging one post");
+                 console.log("trying to flag id " + parseInt(data.thread_id));
+                 updateThis.update({_id: parseInt(data.thread_id)},{$set: {flagged: true}});
+                 func();
+             };
+             updateOne(db,()=>{db.close();});
+         }
+      });   
    },
        
    test: ()=>{

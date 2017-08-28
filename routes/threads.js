@@ -3,6 +3,16 @@
 var UpdateDb = require('../database/updateDb.js');
 
 const Thread = {
+    
+  flagThread: (url,req,res)=>{
+      
+         console.log("Thread PUT request");
+         console.log(req.body);
+         UpdateDb.flag(url,req.body,()=>{
+             
+         });  
+         
+  },    
 
   getBoard: (req,res,url)=>{
          let boards = {boards: [req.params.board]};
@@ -39,7 +49,7 @@ const Thread = {
       },
       
     pushThread: (url,req,res,io)=>{
-        let newThread = req.body;
+         let newThread = req.body;
          newThread.posted_on = Math.round((new Date()).getTime() / 1000);
          newThread.bumped_on = Math.round((new Date()).getTime() / 1000);
          newThread._id = Math.round((new Date()).getTime() / 1000);
@@ -49,9 +59,9 @@ const Thread = {
          console.log(newThread);
          console.log("Thread POST request to " + req.params.board);
          UpdateDb.pushThread(url,{board: newThread.board,thread: newThread},()=>{
-             res.redirect('/');
              io.sockets.emit("send thread", newThread);
          });
+         
          
     }  
 }
