@@ -1,7 +1,9 @@
 'use strict';
 
 $( ".form-form" ).submit((e)=>{  
+  
   event.preventDefault();
+  
   console.log(e.target.id);
   console.log(e.target.name);
   let type = 'PUT';

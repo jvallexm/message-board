@@ -126,7 +126,7 @@ const UpdateDb =
          else
          {
              var updateThis = db.collection(data.board);
-             var updateOne = () => {
+             var updateOne  = () => {
                  console.log("flagging one post");
                  console.log("trying to flag id " + parseInt(data.thread_id));
                  updateThis.update({_id: parseInt(data.thread_id)},{$set: {flagged: true}});
@@ -135,6 +135,35 @@ const UpdateDb =
              updateOne(db,()=>{db.close();});
          }
       });   
+   },
+   
+   deleteThread: (url, data, func)=>{
+       MongoClient.connect( url, (err,db)=>{
+           if(err)
+             console.log(err);
+           else
+           {
+               var findFrom = db.collection(data.board);
+               var findOne  = ()=>{
+                   findFrom.findOne({_id: parseInt(data.thread_id)},{})
+                           .then((found)=>{
+                                  
+                                  let check = false;
+                                  if(found.delete_password == data.delete_password)
+                                  {
+                                      console.log("pass");
+                                      check = true;
+                                      findFrom.remove({_id: parseInt(data.thread_id)});
+                                  }
+                                  else
+                                    console.log("fail");
+                                  func(check);
+                                  
+                           });
+               };
+               findOne(db,()=>{db.close();});
+           }
+       });
    },
        
    test: ()=>{

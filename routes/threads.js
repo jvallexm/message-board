@@ -64,7 +64,21 @@ const Thread = {
          });
          
          
-    }  
+    },
+    
+    deleteThread: (url,req,res,io)=>{
+        
+         console.log("trying to delete post " + req.body.thread_id);
+         UpdateDb.deleteThread(url,req.body,(check)=>{
+             if(check)
+             {
+                 io.sockets.emit("send pop", {board: req.body.board, thread: {_id: parseInt(req.body._id)}});
+                 res.send({redirect: '/success'});
+             }     
+             else
+                res.send({redirect: '/failure'});
+         });
+    }
 }
 
 module.exports = Thread;

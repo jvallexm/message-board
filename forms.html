@@ -62,12 +62,14 @@
         Delete Key: 
       </div>  
       <div class = "col-sm-9">
-        <input name="delete_key" class="width100" required=''
+        <input name="delete_password" class="width100" required=''
                placeholder="delete key" type="text"/>
       </div>
     </div> 
     <button type = "submit" value = "submit" class = "width100">Submit</button>
   </form>  
+  
+  <!--  Report Threads-->
   
     <form class="form-form" id="report-thread" name="PUT">
     <div class = "row">
@@ -94,6 +96,45 @@
                class="width100" placeholder="Thread ID" type="text"/>
       </div>
     </div>
+    <button type = "submit" value = "submit" class = "width100">Submit</button>
+  </form>  
+  
+  <!--Delete Threads-->
+  
+  <form class="form-form" id="delete-thread" name="DELETE">
+    <div class = "row">
+      <div class = "col-sm-12 text-center">
+          <h4>Report a Thread</h4>  
+      </div>
+    </div>
+    <div class = "row">
+      <div class ="col-sm-3">
+        Board: 
+      </div>  
+      <div class = "col-sm-9">
+        <select required='' class="width100" name="board">
+          <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
+        </select>
+      </div>
+    </div>
+    <div class = "row">
+      <div class ="col-sm-3">
+        Thread ID: 
+      </div>  
+      <div class = "col-sm-9">
+        <input name="thread_id" required=''
+               class="width100" placeholder="Thread ID" type="text"/>
+      </div>
+    </div>
+    <div class ="row">
+      <div class ="col-sm-3">
+        Delete Key: 
+      </div>  
+      <div class = "col-sm-9">
+        <input name="delete_password" class="width100" required=''
+               placeholder="delete key" type="text"/>
+      </div>
+    </div> 
     <button type = "submit" value = "submit" class = "width100">Submit</button>
   </form>  
   

@@ -64,4 +64,8 @@ app.get('/success',(req,res)=>{
    res.send("Success!"); 
 });
 
+app.get('/failure',(req,res)=>{
+   res.send("Incorrect Password"); 
+});
+
 apiRoutes(app,io,server,url);
