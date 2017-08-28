@@ -18,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "babel-loader": "https://registry.npmjs.org/babel-loader/-/babel-loader-6.3.2.tgz",
+    "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
     "express": "https://registry.npmjs.org/express/-/express-4.14.1.tgz",
     "gmail-send": "^1.2.11",

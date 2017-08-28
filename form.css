@@ -1,0 +1,14 @@
+form{
+  padding: 10px;
+  max-width: 400px;
+}
+.width100{
+  width: 100%;
+}
+.form-button{
+  width: 362px;
+}
+.col-sm-3{
+  margin-right: 0px;
+  padding-right: 0px;
+}

@@ -8,9 +8,56 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" />
   <link href="/styles.css" rel="stylesheet" type="text/css">
+  <link href="/form.css" rel="stylesheet" type="text/css">
   <body>
-    <div id="root">
-        <h1>Hot poppers!!</h1>
+       <div>
+  <h4>Post a New Thread</h4>  
+  <form class="form" id="post-thread">
+    <div class ="row">
+      <div class ="col-sm-3">
+        Board: 
+      </div>  
+      <div class = "col-sm-9">
+        <select required='' class="width100" name="board">
+          <option>b</option>
+          <option>c</option>
+          <option>m</option>
+          <option>p</option>
+          <option>r</option>
+        </select>
+      </div>
     </div>
+    <div class ="row">
+      <div class ="col-sm-3">
+        Title: 
+      </div>  
+      <div class = "col-sm-9">
+        <input required='' name="name" 
+               class="width100" placeholder="Thread Title" type="text"/>
+      </div>
+    </div>
+    <div class ="row">
+      <div class ="col-sm-3">
+        Text: 
+      </div>  
+      <div class = "col-sm-9">
+        <input name="text" class="width100" required='' 
+               placeholder="Thread Text" type="text"/>
+      </div>
+    </div>  
+    <div class ="row">
+      <div class ="col-sm-3">
+        Delete Key: 
+      </div>  
+      <div class = "col-sm-9">
+        <input name="delete_key" class="width100" required=''
+               placeholder="delete key" type="text"/>
+      </div>
+    </div> 
+    <button type = "submit" value = "Go" class = "width100">Submit</button>
+  </form>  
+</div>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src = './routes/forms.js'></script>
 </html>

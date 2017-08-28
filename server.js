@@ -1,18 +1,23 @@
 'use strict';
 
-var path      = require('path');
-var express   = require('express');
-var app       = express(); 
-var env       = require('dotenv').config();
-var helmet    = require('helmet');
-var UpdateDb  = require('./database/updateDb.js');
-var apiRoutes = require('./routes/apiRoutes.js');
+var path        = require('path');
+var express     = require('express');
+var app         = express(); 
+var env         = require('dotenv').config();
+var helmet      = require('helmet');
+var UpdateDb    = require('./database/updateDb.js');
+var apiRoutes   = require('./routes/apiRoutes.js');
+var bodyParser  = require('body-parser');
 
 const server = app
-  .use(helmet())
-  .use(express.static(__dirname))
-  .use('/api/?',express.static(__dirname))
-  .use('/board/:board/',express.static(__dirname))
+ 
+  .use( bodyParser.json() )
+  .use( bodyParser.urlencoded({ extended: true }) )
+  .use( helmet() )
+  .use(                             express.static(__dirname) )
+  .use( '/api/?'                  , express.static(__dirname) )
+  .use( '/board/:board/'          , express.static(__dirname) )
+  .use( '/board/:board/:post_id'  , express.static(__dirname) )
   .listen(process.env.PORT, () => console.log(`Listening on ${ process.env.PORT }`));
 
 const io = require('socket.io')(server);
@@ -48,10 +53,6 @@ io.on('connection', (socket) => {
    socket.on("post update",(data)=>{
        UpdateDb.updateThread(url,data,()=>{socket.broadcast.emit("send update", data)});
    });
-   
-   socket.on("flag",(data)=>{
-       
-   })
 
 });
 

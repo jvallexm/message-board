@@ -49,12 +49,13 @@ body{
   background-color  : #1D3557;
   padding           : 6px;
   border-radius     : 5px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
   font-family       : "Courgette"; 
   font-size         : 125%;
   text-shadow       : 1px 1px 1px black;
   color             : white;
+  
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   
 }
 

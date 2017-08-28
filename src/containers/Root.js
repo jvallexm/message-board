@@ -225,6 +225,7 @@ export default class App extends React.Component{
                 board        = { this.state.currentBoardName } />
                 
         {this.state.boards.length > 0 && this.state.currentBoard != undefined ?
+        
           <div id='app' className="text-center container-fluid">  
           
           <ShownBoard board         = { this.state.currentBoard }
@@ -246,6 +247,7 @@ export default class App extends React.Component{
                                                              replying    : false,
                                                              deletingTo  : undefined, 
                                                              deleting    : false      } ) } />
+                                                             
          </div>
         : "Loading..."} 
       </div>  

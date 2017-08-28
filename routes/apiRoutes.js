@@ -1,22 +1,37 @@
 'use strict';
 
-var UpdateDb  =  require('../database/updateDb.js');
-var Thread    =  require('./threads.js');
-var Replies   =  require('./replies.js');
+var UpdateDb    =  require('../database/updateDb.js');
+var Thread      =  require('./threads.js');
+var Replies     =  require('./replies.js');
+var bodyParser  =  require('body-parser');
+
 
 module.exports = (app,io,socket,url) => {
-    
-  app.route('/api/threads/:board')
+
+  app.route('/api/threads/:board/?')
      .delete((req,res)=>{
+         
          
      })
      .get((req,res)=>{ 
+         
          Thread.getBoard(req,res,url); 
+         
      })
      .post((req,res)=>{
          
+         let newThread = req.body;
+         newThread.posted_on = Math.round((new Date()).getTime() / 1000);
+         newThread.bumped_on = Math.round((new Date()).getTime() / 1000);
+         newThread._id = Math.round((new Date()).getTime() / 1000);
+         console.log(newThread);
+         console.log("Thread POST request to " + req.params.board);
+         res.redirect('/');
+         
      })
      .put((req,res)=>{
+         
+         console.log("Thread PUT request");
          
      });
   
@@ -25,7 +40,9 @@ module.exports = (app,io,socket,url) => {
          
      })
      .get((req,res)=>{
+         
          Replies.getThread(req,res,url);
+         
      })
      .post((req,res)=>{
          
@@ -40,6 +57,7 @@ module.exports = (app,io,socket,url) => {
 
 
 I can POST a thread to a specific message board by passing form data text and delete_password to /api/threads/{board}.(Recomend res.redirect to board page /b/{board}) Saved will be _id, text, created_on(date&time), bumped_on(date&time, starts same as created_on), reported(boolean), delete_password, & replies(array).
+
 I can POST a reply to a thead on a specific board by passing form data text, delete_password, & thread_id to /api/replies/{board} and it will also update the bumped_on date to the comments date.(Recomend res.redirect to thread page /b/{board}/{thread_id}) In the thread's 'replies' array will be saved _id, text, created_on, delete_password, & reported.
 
 I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')

@@ -16824,6 +16824,7 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
+
       boards: [],
       currentBoardName: "b",
       currentBoard: undefined,
@@ -16836,6 +16837,7 @@ var App = function (_React$Component) {
       deleting: false,
       deletingTo: undefined,
       admin: false
+
     };
     _this.getCurrentBoard = _this.getCurrentBoard.bind(_this);
     _this.pushThread = _this.pushThread.bind(_this);
@@ -16885,15 +16887,23 @@ var App = function (_React$Component) {
     key: 'deleteToggle',
     value: function deleteToggle(deletingTo) {
       console.log("toggling delete");
-      if (!this.state.deleting || deletingTo != this.state.deletingTo) this.setState({ replying: false, replyingTo: undefined,
-        deleting: true, deletingTo: deletingTo });else this.setState({ deleting: false, deletingTo: undefined,
-        replying: false, replyingTo: undefined });
+
+      if (!this.state.deleting || deletingTo != this.state.deletingTo) this.setState({ replying: false,
+        replyingTo: undefined,
+        deleting: true,
+        deletingTo: deletingTo });else this.setState({ deleting: false,
+        deletingTo: undefined,
+        replying: false,
+        replyingTo: undefined });
     }
   }, {
     key: 'replyToggle',
     value: function replyToggle(replyingTo) {
-      if (!this.state.replying || replyingTo != this.state.replyingTo) this.setState({ replying: true, replyingTo: replyingTo,
-        deleting: false, deletingTo: undefined });else this.setState({ replying: false, replyingTo: undefined });
+      if (!this.state.replying || replyingTo != this.state.replyingTo) this.setState({ replying: true,
+        replyingTo: replyingTo,
+        deleting: false,
+        deletingTo: undefined });else this.setState({ replying: false,
+        replyingTo: undefined });
     }
   }, {
     key: 'flagThread',
@@ -17041,11 +17051,14 @@ var App = function (_React$Component) {
             deleting: this.state.deleting,
             deletingTo: this.state.deletingTo,
             repliesOff: function repliesOff() {
-              return _this3.setState({ replyingTo: undefined, replying: false });
+              return _this3.setState({ replyingTo: undefined,
+                replying: false });
             },
             clearAll: function clearAll() {
-              return _this3.setState({ replyingTo: undefined, replying: false,
-                deletingTo: undefined, deleting: false });
+              return _this3.setState({ replyingTo: undefined,
+                replying: false,
+                deletingTo: undefined,
+                deleting: false });
             } })
         ) : "Loading..."
       );
