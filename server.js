@@ -60,4 +60,8 @@ app.get('/forms',(req,res)=>{
    res.redirect('./forms.html'); 
 });
 
+app.get('/success',(req,res)=>{
+   res.send("Success!"); 
+});
+
 apiRoutes(app,io,server,url);

@@ -9,7 +9,7 @@ const Thread = {
          console.log("Thread PUT request");
          console.log(req.body);
          UpdateDb.flag(url,req.body,()=>{
-             
+             res.send({redirect: '/success'});
          });  
          
   },    
@@ -50,6 +50,7 @@ const Thread = {
       
     pushThread: (url,req,res,io)=>{
          let newThread = req.body;
+         res.send({redirect: '/'});
          newThread.posted_on = Math.round((new Date()).getTime() / 1000);
          newThread.bumped_on = Math.round((new Date()).getTime() / 1000);
          newThread._id = Math.round((new Date()).getTime() / 1000);

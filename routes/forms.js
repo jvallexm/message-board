@@ -1,7 +1,7 @@
 'use strict';
 
 $( ".form-form" ).submit((e)=>{  
- event.preventDefault(); 
+  event.preventDefault();
   console.log(e.target.id);
   console.log(e.target.name);
   let type = 'PUT';
@@ -18,7 +18,10 @@ $( ".form-form" ).submit((e)=>{
   $.ajax({
      type : type,
      url  : "/api/threads/" + obj.board, 
-     data : obj
+     data : obj,
+     success: (data)=>{
+       window.location = data.redirect;
+     }
   });
   
   
