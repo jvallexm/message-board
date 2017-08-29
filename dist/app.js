@@ -18763,7 +18763,7 @@ var NavBar = function NavBar(props) {
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'col-lg-6 middle-text' },
+        { className: 'col-lg-5 middle-text' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           null,
@@ -18786,7 +18786,8 @@ var NavBar = function NavBar(props) {
             );
           })
         )
-      )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'col-lg-1' })
     )
   );
 };

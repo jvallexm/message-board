@@ -329,7 +329,7 @@ const NavBar = (props) => {
            <div className="col-lg-5 middle-text">
                A Message Board For Nice People
            </div>
-           <div className="col-lg-6 middle-text">
+           <div className="col-lg-5 middle-text">
               <div>
               {props.boards.sort((a,b)=>{
                if(a.name < b.name)
@@ -344,7 +344,8 @@ const NavBar = (props) => {
                 </span>       
               )}
               </div>
-           </div>  
+           </div>
+           <div className="col-lg-1"/>
         </div>  
       </nav>
   );
