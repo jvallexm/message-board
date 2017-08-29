@@ -21,7 +21,8 @@ export default class App extends React.Component{
       replyingTo        : undefined,
       deleting          : false,
       deletingTo        : undefined,
-      admin             : false
+      admin             : false,
+      about             : false
       
     };
     this.getCurrentBoard  =  this.getCurrentBoard.bind(this);
@@ -247,8 +248,10 @@ export default class App extends React.Component{
           
         <NavBar boards       = { this.state.boards }
                 switchBoard  = { this.switchBoard }
-                board        = { this.state.currentBoardName } />
+                board        = { this.state.currentBoardName } 
+                about        = { ()=> this.setState({about: true}) }/>
                 
+        {this.state.about ? <About close={()=>this.setState({about: false})}/> : ""}        
         {this.state.boards.length > 0 && this.state.currentBoard != undefined ?
         
           <div id='app' className="text-center container-fluid">  
@@ -280,11 +283,50 @@ export default class App extends React.Component{
   }
 }
 
+const About = (props) =>{
+  return(
+    <div className="aboot text-center">
+      <div className="aboot-x">
+        <i className="fa fa-close"
+           onClick={props.close}/>
+      </div>  
+      <div className="thread-head">
+        About This Projects
+      </div>  
+      <div>
+        FreeCodeCamp's curriculum will soon include an <strong className="pointer" onClick={()=>window.open("https://beta.freecodecamp.com/en/challenges/information-security-and-quality-assurance-projects/anonymous-message-board")}>Anonymous Message Board <i className="fa fa-external-link"/></strong>. You can use the API requests from the <strong className="pointer" onClick={()=>window.open('/forms')}>Forms Page <i className="fa fa-external-link"/></strong><br/>In addition to fulfilling all the requirements, it includes some new features:<br/>
+        <div className="aboot-10">
+        ★ Users new threads and replies will update in real time<br/>
+        ★ Users can link to an image when posting a thread<br/>
+        ★ Users can reply to replies on a thread<br/>
+        ★ The most recently updated thread will always be on top of the board unless...<br/>
+        ★ A user is typing a reply or trying to delete a post, threads will still update, but they won't be reordered until they've cancelled or submitted their request.<br/>
+        ★ Any updates made using API requests will be shown in real time on the board 
+        </div>  
+      </div>
+      <button className = "btn aboot-btn"
+              title     = {"View on Github"}
+              onClick   = {()=>window.open("https://github.com/jvallexm/message-board")}>
+         View on Github <i className="fa fa-github"/>
+      </button>  
+      <button className="btn aboot-btn"
+              onClick={props.close}>
+         Close
+      </button>  
+    </div>  
+  );
+}
+
 const NavBar = (props) => {
   return(
       <nav className="text-center container-fluid">
         <div className="row">
-           <div className="col-lg-6 middle-text">
+           <div className="col-lg-1 middle-text">
+              <i className="fa fa-question-circle" 
+                 title={"About This Project"}
+                 onClick={props.about}/>
+           </div>
+           <div className="col-lg-5 middle-text">
                A Message Board For Nice People
            </div>
            <div className="col-lg-6 middle-text">

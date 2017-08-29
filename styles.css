@@ -287,3 +287,37 @@ textarea
   color             : green;
   
 }
+
+.aboot-x{
+  
+  top               : 3px;
+  right             : 8px;
+  color             : white;
+  z-index           : 2;
+  position          : absolute;
+  
+}
+.aboot-10{
+  margin-top        : 5px;
+}
+.aboot-btn{
+  margin            : 2px;
+  margin-top        : 5px !important;
+  background-color  : #1D3557;
+  color             : white;
+  font-family       : "Courgette";
+}
+.aboot{
+  background-color  : #F1FAEE;
+  position          : absolute;
+  top               : 50px;
+  left              : 20px;
+  border-radius     : 5px;
+  padding           : 3px;
+  width             : 600px;
+  box-shadow        : 2px 2px 2px black,
+                      1px -1px 1px gray,
+                      -1px 1px 1px gray,
+                      -1px -1px 1px gray;
+  z-index           : 1;
+}

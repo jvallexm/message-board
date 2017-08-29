@@ -16836,7 +16836,8 @@ var App = function (_React$Component) {
       replyingTo: undefined,
       deleting: false,
       deletingTo: undefined,
-      admin: false
+      admin: false,
+      about: false
 
     };
     _this.getCurrentBoard = _this.getCurrentBoard.bind(_this);
@@ -17048,7 +17049,13 @@ var App = function (_React$Component) {
         ) : "",
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(NavBar, { boards: this.state.boards,
           switchBoard: this.switchBoard,
-          board: this.state.currentBoardName }),
+          board: this.state.currentBoardName,
+          about: function about() {
+            return _this3.setState({ about: true });
+          } }),
+        this.state.about ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(About, { close: function close() {
+            return _this3.setState({ about: false });
+          } }) : "",
         this.state.boards.length > 0 && this.state.currentBoard != undefined ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { id: 'app', className: 'text-center container-fluid' },
@@ -17091,6 +17098,80 @@ var _default = App;
 /* harmony default export */ __webpack_exports__["a"] = _default;
 
 
+var About = function About(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    { className: 'aboot text-center' },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'aboot-x' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-close',
+        onClick: props.close })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'thread-head' },
+      'About This Projects'
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      'FreeCodeCamp\'s curriculum will soon include an ',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'strong',
+        { className: 'pointer', onClick: function onClick() {
+            return window.open("https://beta.freecodecamp.com/en/challenges/information-security-and-quality-assurance-projects/anonymous-message-board");
+          } },
+        'Anonymous Message Board ',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-external-link' })
+      ),
+      '. You can use the API requests from the ',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'strong',
+        { className: 'pointer', onClick: function onClick() {
+            return window.open('/forms');
+          } },
+        'Forms Page ',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-external-link' })
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+      'In addition to fulfilling all the requirements, it includes some new features:',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'aboot-10' },
+        '\u2605 Users new threads and replies will update in real time',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+        '\u2605 Users can link to an image when posting a thread',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+        '\u2605 Users can reply to replies on a thread',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+        '\u2605 The most recently updated thread will always be on top of the board unless...',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+        '\u2605 A user is typing a reply or trying to delete a post, threads will still update, but they won\'t be reordered until they\'ve cancelled or submitted their request.',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+        '\u2605 Any updates made using API requests will be shown in real time on the board'
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'button',
+      { className: 'btn aboot-btn',
+        title: "View on Github",
+        onClick: function onClick() {
+          return window.open("https://github.com/jvallexm/message-board");
+        } },
+      'View on Github ',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-github' })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'button',
+      { className: 'btn aboot-btn',
+        onClick: props.close },
+      'Close'
+    )
+  );
+};
+
 var NavBar = function NavBar(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'nav',
@@ -17100,7 +17181,14 @@ var NavBar = function NavBar(props) {
       { className: 'row' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'col-lg-6 middle-text' },
+        { className: 'col-lg-1 middle-text' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-question-circle',
+          title: "About This Project",
+          onClick: props.about })
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'col-lg-5 middle-text' },
         'A Message Board For Nice People'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -17142,6 +17230,8 @@ var _temp = function () {
   __REACT_HOT_LOADER__.register(socket, 'socket', '/home/ubuntu/workspace/src/containers/Root.js');
 
   __REACT_HOT_LOADER__.register(App, 'App', '/home/ubuntu/workspace/src/containers/Root.js');
+
+  __REACT_HOT_LOADER__.register(About, 'About', '/home/ubuntu/workspace/src/containers/Root.js');
 
   __REACT_HOT_LOADER__.register(NavBar, 'NavBar', '/home/ubuntu/workspace/src/containers/Root.js');
 

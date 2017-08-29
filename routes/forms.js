@@ -15,12 +15,11 @@ $( ".form" ).submit((e)=>{
       type = 'DELETE';
   let arr  = $('#' + e.target.id).serializeArray();
   let obj  = {};
-  console.log("Route: " + whichRoute);
+  //console.log("Route: " + whichRoute);
   $.each(arr,(i,input)=>{
      obj[input.name] = input.value;
   });
   //setTimeout(()=>{
-    console.log(obj);
    
     $.ajax({
        type : type,
