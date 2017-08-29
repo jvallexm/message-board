@@ -9,11 +9,16 @@ var UpdateDb    = require('./database/updateDb.js');
 var apiRoutes   = require('./routes/apiRoutes.js');
 var bodyParser  = require('body-parser');
 
+app.use( helmet() )
+   .use( helmet.hidePoweredBy( { setTo: 'PHP 4.2.0' } ) )
+   .use( helmet.frameguard( { action: 'sameorigin' } ) )
+   .use( helmet.dnsPrefetchControl() )
+   .use( helmet.referrerPolicy( { policy: 'no-referrer'} ) );
+   
 const server = app
  
   .use( bodyParser.json() )
   .use( bodyParser.urlencoded({ extended: true }) )
-  .use( helmet() )
   .use(                             express.static(__dirname) )
   .use( '/api/?'                  , express.static(__dirname) )
   .use( '/board/:board/'          , express.static(__dirname) )
