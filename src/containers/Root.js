@@ -249,7 +249,7 @@ export default class App extends React.Component{
         <NavBar boards       = { this.state.boards }
                 switchBoard  = { this.switchBoard }
                 board        = { this.state.currentBoardName } 
-                about        = { ()=> this.setState({about: true}) }/>
+                about        = { this.state.about ? ()=> this.setState({about: false}) : ()=> this.setState({about: true}) }/>
                 
         {this.state.about ? <About close={()=>this.setState({about: false})}/> : ""}        
         {this.state.boards.length > 0 && this.state.currentBoard != undefined ?

@@ -18618,7 +18618,9 @@ var App = function (_React$Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(NavBar, { boards: this.state.boards,
           switchBoard: this.switchBoard,
           board: this.state.currentBoardName,
-          about: function about() {
+          about: this.state.about ? function () {
+            return _this3.setState({ about: false });
+          } : function () {
             return _this3.setState({ about: true });
           } }),
         this.state.about ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(About, { close: function close() {
