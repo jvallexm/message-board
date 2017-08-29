@@ -21,3 +21,6 @@ form{
 a{
   color: white;
 }
+.max-900{
+  max-width: 900;
+}

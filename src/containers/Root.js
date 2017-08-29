@@ -32,42 +32,45 @@ export default class App extends React.Component{
     this.updateThread     =  this.updateThread.bind(this);
     this.deleteToggle     =  this.deleteToggle.bind(this);
     this.replyToggle      =  this.replyToggle.bind(this);
-    this.flagThread       =  this.flagThread.bind(this);
   }
   componentWillMount()
   {
     socket.emit('need boards', {boards: this.state.getBoards});
+    
     socket.on("send boards",(data)=>{
+      
         var urlHere = window.location.href.split('/');
         let whichBoard = this.state.currentBoardName;
         if(urlHere.indexOf('board')!=-1)
         {
-          console.log("urlHere " + urlHere);
-          console.log("trying to get board " + urlHere[urlHere.length-2]);
           whichBoard = urlHere[urlHere.length-2];
         }
         console.log("getting boards from server..");
-        //console.log(data.boards);
         this.setState({boards: data.boards, currentBoardName: whichBoard});
         this.getCurrentBoard(whichBoard);
+        
     });
+    
     socket.on("send thread",(data)=>{
       this.pushThread(data.board,data.thread,false);
     });
+    
     socket.on("send pop",(data)=>{
       this.popThread(data.board,data.thread,false);
     });
+    
     socket.on("send update",(data)=>{
       this.updateThread(data.board,data.thread,false);
     });
+    
     socket.on("console log",(data)=>{
       console.log(data.log);
     });
+    
   }
   deleteToggle(deletingTo)
   {
-    console.log("toggling delete");
-    
+
     if(!this.state.deleting || deletingTo != this.state.deletingTo)
       this.setState( { replying   : false, 
                        replyingTo : undefined,
@@ -90,10 +93,6 @@ export default class App extends React.Component{
       this.setState( { replying   : false, 
                        replyingTo : undefined } );
   }
-  flagThread()
-  {
-    
-  }
   getCurrentBoard(board)
   {
     let whichBoard = this.state.currentBoardName;
@@ -110,7 +109,6 @@ export default class App extends React.Component{
         return;
       }  
     }
-    console.log("after return");
   }
   popThread(board, thread, isNew)
   {

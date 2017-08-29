@@ -1,9 +1,11 @@
 'use strict';
 
-$( ".form-form" ).submit((e)=>{  
+$( ".form" ).submit((e)=>{  
   
   event.preventDefault();
-  
+  let whichRoute = "/api/replies/"
+  if( $('#' + e.target.id).attr("class").indexOf("thread-form") > -1);
+      whichRoute = "/api/threads/"
   console.log(e.target.id);
   console.log(e.target.name);
   let type = 'PUT';
@@ -17,14 +19,15 @@ $( ".form-form" ).submit((e)=>{
      obj[input.name] = input.value;
   });
   console.log(obj);
+  console.log("Route: " + whichRoute);
   $.ajax({
      type : type,
-     url  : "/api/threads/" + obj.board, 
+     url  : whichRoute + obj.board, 
      data : obj,
      success: (data)=>{
        window.location = data.redirect;
      }
   });
   
-  
 });
+

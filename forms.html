@@ -21,124 +21,243 @@
            </div>  
         </div>  
   </nav>  
-      
-  <div>
-  <!--- Form to  post new threads -->
-  
-  <form class="form-form" id="post-thread" name="POST">
-    <div class = "row">
-      <div class = "col-sm-12 text-center"> <h4>Post a New Thread</h4> </div>
-    </div>
-    <div class = "row">
-      <div class ="col-sm-3">
-        Board: 
-      </div>  
-      <div class = "col-sm-9">
-        <select required='' class="width100" name="board">
-          <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
-        </select>
+  <div class = "max-900 text-center container-fluid">
+  <div class = "row">
+        <div class = "col">
+        <!--- Form to  post new threads -->
+        
+        <form class="thread-form form" id="post-thread" name="POST">
+          <div class = "row">
+            <div class = "col-sm-12 text-center"> <h4>Post a New Thread</h4> </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Board: 
+            </div>  
+            <div class = "col-sm-9">
+              <select required='' class="width100" name="board">
+                <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
+              </select>
+            </div>
+          </div>
+          <div class ="row">
+            <div class ="col-sm-3">
+              Title: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="thread_name" required=''
+                     class="width100" placeholder="Thread Title" type="text"/>
+            </div>
+          </div>
+          <div class ="row">
+            <div class ="col-sm-3">
+              Text: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="text" class="width100" required='' 
+                     placeholder="Thread Text" type="text"/>
+            </div>
+          </div>  
+          <div class ="row">
+            <div class ="col-sm-3">
+              Delete Key: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="delete_password" class="width100" required=''
+                     placeholder="delete key" type="text"/>
+            </div>
+          </div> 
+          <button type = "submit" value = "submit" class = "width100">Submit</button>
+        </form>  
+        
+        <!--  Report Threads-->
+        
+          <form class="thread-form form" id="report-thread" name="PUT">
+          <div class = "row">
+            <div class = "col-sm-12 text-center">
+                <h4>Report a Thread</h4>  
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Board: 
+            </div>  
+            <div class = "col-sm-9">
+              <select required='' class="width100" name="board">
+                <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
+              </select>
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Thread ID: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="thread_id" required=''
+                     class="width100" placeholder="Thread ID" type="text"/>
+            </div>
+          </div>
+          <button type = "submit" value = "submit" class = "width100">Submit</button>
+        </form>  
+        
+        <!--Delete Threads-->
+        
+        <form class="thread-form form" id="delete-thread" name="DELETE">
+          <div class = "row">
+            <div class = "col-sm-12 text-center">
+                <h4>Delete a Thread</h4>  
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Board: 
+            </div>  
+            <div class = "col-sm-9">
+              <select required='' class="width100" name="board">
+                <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
+              </select>
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Thread ID: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="thread_id" required=''
+                     class="width100" placeholder="Thread ID" type="text"/>
+            </div>
+          </div>
+          <div class ="row">
+            <div class ="col-sm-3">
+              Delete Key: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="delete_password" class="width100" required=''
+                     placeholder="delete key" type="text"/>
+            </div>
+          </div> 
+          <button type = "submit" value = "submit" class = "width100">Submit</button>
+        </form>  
+        
       </div>
-    </div>
-    <div class ="row">
-      <div class ="col-sm-3">
-        Title: 
-      </div>  
-      <div class = "col-sm-9">
-        <input name="thread_name" required=''
-               class="width100" placeholder="Thread Title" type="text"/>
-      </div>
-    </div>
-    <div class ="row">
-      <div class ="col-sm-3">
-        Text: 
-      </div>  
-      <div class = "col-sm-9">
-        <input name="text" class="width100" required='' 
-               placeholder="Thread Text" type="text"/>
+      <div class = "col">
+          <!--- Form to  post new threads -->
+        
+        <form class="reply-form form" id="post-reply" name="POST">
+          <div class = "row">
+            <div class = "col-sm-12 text-center"> <h4>Post a New Thread</h4> </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Board: 
+            </div>  
+            <div class = "col-sm-9">
+              <select required='' class="width100" name="board">
+                <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
+              </select>
+            </div>
+          </div>
+          <div class ="row">
+            <div class ="col-sm-3">
+              Title: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="thread_name" required=''
+                     class="width100" placeholder="Thread Title" type="text"/>
+            </div>
+          </div>
+          <div class ="row">
+            <div class ="col-sm-3">
+              Text: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="text" class="width100" required='' 
+                     placeholder="Thread Text" type="text"/>
+            </div>
+          </div>  
+          <div class ="row">
+            <div class ="col-sm-3">
+              Delete Key: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="delete_password" class="width100" required=''
+                     placeholder="delete key" type="text"/>
+            </div>
+          </div> 
+          <button type = "submit" value = "submit" class = "width100">Submit</button>
+        </form>  
+        
+        <!--  Report Threads-->
+        
+          <form class="reply-form form" id="report-reply" name="PUT">
+          <div class = "row">
+            <div class = "col-sm-12 text-center">
+                <h4>Report a Thread</h4>  
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Board: 
+            </div>  
+            <div class = "col-sm-9">
+              <select required='' class="width100" name="board">
+                <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
+              </select>
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Thread ID: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="thread_id" required=''
+                     class="width100" placeholder="Thread ID" type="text"/>
+            </div>
+          </div>
+          <button type = "submit" value = "submit" class = "width100">Submit</button>
+        </form>  
+        
+        <!--Delete Threads-->
+        
+        <form class="reply-form form" id="delete-reply" name="DELETE">
+          <div class = "row">
+            <div class = "col-sm-12 text-center">
+                <h4>Delete a Thread</h4>  
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Board: 
+            </div>  
+            <div class = "col-sm-9">
+              <select required='' class="width100" name="board">
+                <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
+              </select>
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Thread ID: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="thread_id" required=''
+                     class="width100" placeholder="Thread ID" type="text"/>
+            </div>
+          </div>
+          <div class ="row">
+            <div class ="col-sm-3">
+              Delete Key: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="delete_password" class="width100" required=''
+                     placeholder="delete key" type="text"/>
+            </div>
+          </div> 
+          <button type = "submit" value = "submit" class = "width100">Submit</button>
+        </form>  
       </div>
     </div>  
-    <div class ="row">
-      <div class ="col-sm-3">
-        Delete Key: 
-      </div>  
-      <div class = "col-sm-9">
-        <input name="delete_password" class="width100" required=''
-               placeholder="delete key" type="text"/>
-      </div>
-    </div> 
-    <button type = "submit" value = "submit" class = "width100">Submit</button>
-  </form>  
-  
-  <!--  Report Threads-->
-  
-    <form class="form-form" id="report-thread" name="PUT">
-    <div class = "row">
-      <div class = "col-sm-12 text-center">
-          <h4>Report a Thread</h4>  
-      </div>
-    </div>
-    <div class = "row">
-      <div class ="col-sm-3">
-        Board: 
-      </div>  
-      <div class = "col-sm-9">
-        <select required='' class="width100" name="board">
-          <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
-        </select>
-      </div>
-    </div>
-    <div class = "row">
-      <div class ="col-sm-3">
-        Thread ID: 
-      </div>  
-      <div class = "col-sm-9">
-        <input name="thread_id" required=''
-               class="width100" placeholder="Thread ID" type="text"/>
-      </div>
-    </div>
-    <button type = "submit" value = "submit" class = "width100">Submit</button>
-  </form>  
-  
-  <!--Delete Threads-->
-  
-  <form class="form-form" id="delete-thread" name="DELETE">
-    <div class = "row">
-      <div class = "col-sm-12 text-center">
-          <h4>Report a Thread</h4>  
-      </div>
-    </div>
-    <div class = "row">
-      <div class ="col-sm-3">
-        Board: 
-      </div>  
-      <div class = "col-sm-9">
-        <select required='' class="width100" name="board">
-          <option>b</option><option>c</option><option>m</option><option>p</option><option>d</option>
-        </select>
-      </div>
-    </div>
-    <div class = "row">
-      <div class ="col-sm-3">
-        Thread ID: 
-      </div>  
-      <div class = "col-sm-9">
-        <input name="thread_id" required=''
-               class="width100" placeholder="Thread ID" type="text"/>
-      </div>
-    </div>
-    <div class ="row">
-      <div class ="col-sm-3">
-        Delete Key: 
-      </div>  
-      <div class = "col-sm-9">
-        <input name="delete_password" class="width100" required=''
-               placeholder="delete key" type="text"/>
-      </div>
-    </div> 
-    <button type = "submit" value = "submit" class = "width100">Submit</button>
-  </form>  
-  
-</div>
+  </div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src = './routes/forms.js'></script>

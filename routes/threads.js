@@ -2,7 +2,7 @@
 
 var UpdateDb = require('../database/updateDb.js');
 
-const Thread = {
+module.exports = {
     
   flagThread: (url,req,res)=>{
       
@@ -80,5 +80,3 @@ const Thread = {
          });
     }
 }
-
-module.exports = Thread;
