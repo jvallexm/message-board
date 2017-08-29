@@ -58,7 +58,24 @@ const Replies = {
             });
             res.send({redirect: "/board/" + req.params.board});
          });
-    }  
+    },  
+    
+    deleteReply:  (req,res,url,io)=>{
+         
+         console.log("attempting to delete reply " + req.body.reply_id + " from thread " + req.body.thread_id);
+         UpdateDb.popReply(url,req.body,(check,thread)=>{
+             if(check)
+             {
+               io.sockets.emit("send update",{
+                 board: req.body.board,
+                 thread: thread
+               });  
+               res.send({redirect: '/success'});
+             }
+             else
+                res.send({redirect: '/failure'});
+         });
+    }
       
       
 };

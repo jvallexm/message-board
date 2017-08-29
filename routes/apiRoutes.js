@@ -33,6 +33,8 @@ module.exports = (app,io,socket,url) => {
   app.route('/api/replies/:board/?')
      .delete((req,res)=>{
          
+        Replies.deleteReply(req,res,url,io)
+         
      })
      .get((req,res)=>{
          

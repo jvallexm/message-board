@@ -136,7 +136,7 @@ const UpdateDb =
       });   
    },
    
-   flagReply: (url,data,func,res)=>{
+   flagReply: (url,data,func)=>{
       MongoClient.connect(url, (err,db)=>{
          if(err)
            console.log(err);
@@ -160,7 +160,6 @@ const UpdateDb =
                             func({},false);
                             return;
                          });
-                res.send({redirect: '/failure'});         
              };
              updateOne(db,()=>{db.close();});
          }  
@@ -227,6 +226,39 @@ const UpdateDb =
        
    },
        
+       
+   popReply: (url,data,func)=>{
+      MongoClient.connect(url, (err,db)=>{
+         if(err)
+           console.log(err);
+         else
+         {
+             var findThis = db.collection(data.board);
+             var updateOne = () =>{
+                 findThis.findOne({_id: parseInt(data.thread_id)})
+                         .then((found)=>{
+                            let thread = found;
+                            let newReplies = []
+                            for(let i=0;i<thread.replies.length;i++)
+                            {
+                                if(thread.replies[i]._id == parseInt(data.reply_id) &&  thread.replies[i].delete_password != data.delete_password)
+                                {
+                                    func(false);
+                                    return;
+                                }
+                                else if(thread.replies[i]._id != parseInt(data.reply_id))
+                                    newReplies.push(thread.replies[i]);
+                            }
+                            thread.replies = newReplies;
+                            findThis.update({_id: parseInt(data.thread_id)} , thread);
+                            func(true,thread);
+                         });
+             };
+             updateOne(db,()=>{db.close();});
+         }  
+      });     
+   },
+   
    test: ()=>{
        console.log("db module test");
    }    
