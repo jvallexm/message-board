@@ -18679,7 +18679,7 @@ var About = function About(props) {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'thread-head' },
-      'About This Projects'
+      'About This Project'
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
