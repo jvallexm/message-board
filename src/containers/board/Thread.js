@@ -1,8 +1,8 @@
-import React from 'react';
-import ShowReplies from './ShowReplies.js';
+import React        from 'react';
+import ShowReplies  from './ShowReplies.js';
 import HandleDelete from './HandleDelete.js';
-import PostReply from './PostReply.js';
-import Flag from './HandleFlag.js';
+import PostReply    from './PostReply.js';
+import Flag         from './HandleFlag.js';
 
 export default class Thread extends React.Component{
   constructor(props)
@@ -186,16 +186,6 @@ export default class Thread extends React.Component{
                      onClick={()=>this.props.replyToggle(this.props.thread)}> Reply</span>
              </div>
              {
-              this.props.replying && this.props.replyingTo._id == this.props.thread._id 
-              ?
-              <PostReply pushReply={this.pushReply}
-                         root={true}
-                         replyToggle={()=>this.props.replyToggle(this.props.thread)}
-                         replyingTo={this.state.thread}/>
-              :
-              ""
-             }
-             {
               this.props.deleting && this.props.deletingTo._id == this.props.thread._id 
               ?
               <HandleDelete toDelete     = {this.props.thread}
@@ -217,7 +207,17 @@ export default class Thread extends React.Component{
                          deletingTo   = {this.props.deletingTo} 
                          deletePost   = {this.deletePost}
                          flagPost     = {this.flagPost}/>
-          </div>  
+          </div>
+          {
+              this.props.replying && this.props.replyingTo._id == this.props.thread._id 
+              ?
+              <PostReply pushReply={this.pushReply}
+                         root={true}
+                         replyToggle={()=>this.props.replyToggle(this.props.thread)}
+                         replyingTo={this.state.thread}/>
+              :
+              ""
+          }
         </div>
       </div>   
      

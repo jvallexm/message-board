@@ -31,13 +31,6 @@ export default class ShowReplies extends React.Component{
                 <span className="blue"
                       onClick={()=>this.props.replyToggle(d)}> Reply</span>
               </div>
-              {this.props.replying && this.props.replyingTo._id == d._id?
-              
-               <PostReply pushReply   =  {this.props.pushReply}
-                          root        =  {false}
-                          replyToggle =  {()=>this.props.replyToggle(d)}
-                          replyingTo  =  {d}/>
-              :""}
               {this.props.deleting && this.props.deletingTo._id == d._id?
               
                <HandleDelete toDelete     = {d}
@@ -64,6 +57,13 @@ export default class ShowReplies extends React.Component{
                          :""}   
                       </div>
               )}
+              {this.props.replying && this.props.replyingTo._id == d._id?
+              
+               <PostReply pushReply   =  {this.props.pushReply}
+                          root        =  {false}
+                          replyToggle =  {()=>this.props.replyToggle(d)}
+                          replyingTo  =  {d}/>
+              :""}
             </div>
     )}
     </div>  
