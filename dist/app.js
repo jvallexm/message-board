@@ -17105,7 +17105,7 @@ var About = function About(props) {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'aboot-x' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-close',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-close pointer',
         onClick: props.close })
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -17182,7 +17182,7 @@ var NavBar = function NavBar(props) {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'col-lg-1 middle-text' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-question-circle',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-question-circle pointer',
           title: "About This Project",
           onClick: props.about })
       ),

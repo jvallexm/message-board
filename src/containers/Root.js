@@ -287,7 +287,7 @@ const About = (props) =>{
   return(
     <div className="aboot text-center">
       <div className="aboot-x">
-        <i className="fa fa-close"
+        <i className="fa fa-close pointer"
            onClick={props.close}/>
       </div>  
       <div className="thread-head">
@@ -322,7 +322,7 @@ const NavBar = (props) => {
       <nav className="text-center container-fluid">
         <div className="row">
            <div className="col-lg-1 middle-text">
-              <i className="fa fa-question-circle" 
+              <i className="fa fa-question-circle pointer" 
                  title={"About This Project"}
                  onClick={props.about}/>
            </div>

@@ -250,6 +250,13 @@ textarea
   
 }
 
+.fa-flag{
+  
+  cursor            : pointer; 
+  cursor            : hand;
+  
+}
+
 .btn{
   
   cursor            : pointer; 
