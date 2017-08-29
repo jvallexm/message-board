@@ -30,7 +30,7 @@ module.exports = (app,io,socket,url) => {
          
      });
   
-  app.route('/api/replies/:board?')
+  app.route('/api/replies/:board/?')
      .delete((req,res)=>{
          
      })
@@ -40,7 +40,9 @@ module.exports = (app,io,socket,url) => {
          
      })
      .post((req,res)=>{
-         
+        
+        Replies.pushReply(req,res,url,io); 
+        
      })
      .put((req,res)=>{
          

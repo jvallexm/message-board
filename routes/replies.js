@@ -30,7 +30,21 @@ const Replies = {
                     res.send("Sorry, can't find that thread!");
              },true);
          }     
-      }
+      },
+      
+    pushReply: (req,res,url,io)=>{
+        
+        console.log("Atempting to post reply to thread " + req.body.thread_id);
+         UpdateDb.pushReply(url,req.body,()=>{
+            console.log("reply posted!");
+            io.sockets.emit("send reply",{
+               board  : req.params.board,
+               thread : req.body.thread_id,
+               reply  : req.body
+            });
+            res.send({redirect: "/board/" + req.params.board});
+         });
+    }  
       
       
 };

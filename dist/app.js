@@ -16841,13 +16841,13 @@ var App = function (_React$Component) {
     };
     _this.getCurrentBoard = _this.getCurrentBoard.bind(_this);
     _this.pushThread = _this.pushThread.bind(_this);
+    _this.pushReply = _this.pushReply.bind(_this);
     _this.popThread = _this.popThread.bind(_this);
     _this.setBoard = _this.setBoard.bind(_this);
     _this.switchBoard = _this.switchBoard.bind(_this);
     _this.updateThread = _this.updateThread.bind(_this);
     _this.deleteToggle = _this.deleteToggle.bind(_this);
     _this.replyToggle = _this.replyToggle.bind(_this);
-    _this.flagThread = _this.flagThread.bind(_this);
     return _this;
   }
 
@@ -16857,28 +16857,35 @@ var App = function (_React$Component) {
       var _this2 = this;
 
       socket.emit('need boards', { boards: this.state.getBoards });
+
       socket.on("send boards", function (data) {
+
         var urlHere = window.location.href.split('/');
         var whichBoard = _this2.state.currentBoardName;
         if (urlHere.indexOf('board') != -1) {
-          console.log("urlHere " + urlHere);
-          console.log("trying to get board " + urlHere[urlHere.length - 2]);
           whichBoard = urlHere[urlHere.length - 2];
         }
         console.log("getting boards from server..");
-        //console.log(data.boards);
         _this2.setState({ boards: data.boards, currentBoardName: whichBoard });
         _this2.getCurrentBoard(whichBoard);
       });
+
       socket.on("send thread", function (data) {
         _this2.pushThread(data.board, data.thread, false);
       });
+
       socket.on("send pop", function (data) {
         _this2.popThread(data.board, data.thread, false);
       });
+
       socket.on("send update", function (data) {
         _this2.updateThread(data.board, data.thread, false);
       });
+
+      socket.on("send reply", function (data) {
+        _this2.pushReply(data.board, data.thread, data.reply);
+      });
+
       socket.on("console log", function (data) {
         console.log(data.log);
       });
@@ -16886,7 +16893,6 @@ var App = function (_React$Component) {
   }, {
     key: 'deleteToggle',
     value: function deleteToggle(deletingTo) {
-      console.log("toggling delete");
 
       if (!this.state.deleting || deletingTo != this.state.deletingTo) this.setState({ replying: false,
         replyingTo: undefined,
@@ -16906,9 +16912,6 @@ var App = function (_React$Component) {
         replyingTo: undefined });
     }
   }, {
-    key: 'flagThread',
-    value: function flagThread() {}
-  }, {
     key: 'getCurrentBoard',
     value: function getCurrentBoard(board) {
       var whichBoard = this.state.currentBoardName;
@@ -16922,7 +16925,6 @@ var App = function (_React$Component) {
           return;
         }
       }
-      console.log("after return");
     }
   }, {
     key: 'popThread',
@@ -16948,8 +16950,25 @@ var App = function (_React$Component) {
         });
       }
       this.setState({ boards: boards });
-      if (board == this.state.currentBoardName) ;
-      this.getCurrentBoard();
+      if (board == this.state.currentBoardName) this.getCurrentBoard();
+    }
+  }, {
+    key: 'pushReply',
+    value: function pushReply(board, thread, reply) {
+      var boards = this.state.boards;
+      console.log("pushing a reply to" + board);
+      for (var i = 0; i < boards.length; i++) {
+        if (boards[i]._id == board) {
+          for (var j = 0; j < boards[i].threads.length; j++) {
+            if (boards[i].threads[j]._id == thread) {
+              boards[i].threads[j].replies.push(reply);
+              this.setState({ boards: boards });
+              if (board == this.state.currentBoardName) this.getCurrentBoard();
+              return;
+            }
+          }
+        }
+      }
     }
   }, {
     key: 'pushThread',

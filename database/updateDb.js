@@ -165,6 +165,37 @@ const UpdateDb =
            }
        });
    },
+   
+   pushReply: (url,data,func)=>{
+     
+         MongoClient.connect(url, (err,db)=>{
+         if(err)
+           console.log(err);
+         else
+         {
+             var updateThis = db.collection(data.board);
+             var updateOne = () => {
+                 console.log("updating post from database");
+                 let now =  Math.round((new Date()).getTime() / 1000);
+                 console.log("the time is " + now);
+                 updateThis.update({_id: parseInt(data.thread_id)},{
+                     $set  : {bumped_on: now},
+                     $push : {replies: {
+                         _id             : now,
+                         flagged         : false,
+                         replies         : [],
+                         text            : data.text,
+                         delete_password : data.delete_password,
+                         posted_on       : now
+                     }}
+                 });
+                 func();
+             };
+             updateOne(db,()=>{db.close();});
+         }
+      }); 
+       
+   },
        
    test: ()=>{
        console.log("db module test");

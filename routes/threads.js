@@ -56,7 +56,10 @@ module.exports = {
          newThread._id = Math.round((new Date()).getTime() / 1000);
          newThread.replies = [];
          newThread.flagged = false;
-         newThread.name = newThread.thread_name;
+         if(newThread.thread_name == undefined)
+            newThread.name = "";
+         else
+            newThread.name = newThread.thread_name;
          console.log(newThread);
          console.log("Thread POST request to " + req.params.board);
          UpdateDb.pushThread(url,{board: newThread.board,thread: newThread},()=>{

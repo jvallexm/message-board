@@ -26,6 +26,7 @@ export default class App extends React.Component{
     };
     this.getCurrentBoard  =  this.getCurrentBoard.bind(this);
     this.pushThread       =  this.pushThread.bind(this);
+    this.pushReply        =  this.pushReply.bind(this);
     this.popThread        =  this.popThread.bind(this);
     this.setBoard         =  this.setBoard.bind(this);
     this.switchBoard      =  this.switchBoard.bind(this);
@@ -61,6 +62,10 @@ export default class App extends React.Component{
     
     socket.on("send update",(data)=>{
       this.updateThread(data.board,data.thread,false);
+    });
+    
+    socket.on("send reply",(data)=>{
+      this.pushReply(data.board,data.thread,data.reply);
     });
     
     socket.on("console log",(data)=>{
@@ -138,8 +143,30 @@ export default class App extends React.Component{
       });
     }  
     this.setState({boards: boards});
-    if(board == this.state.currentBoardName);
+    if(board == this.state.currentBoardName)
       this.getCurrentBoard();
+  }
+  pushReply(board,thread,reply)
+  {
+    let boards = this.state.boards;
+    console.log("pushing a reply to" + board);
+    for(let i=0;i<boards.length;i++)
+    {
+      if(boards[i]._id == board)
+      {
+         for(let j=0;j<boards[i].threads.length;j++)
+         {
+           if(boards[i].threads[j]._id == thread)
+           {
+             boards[i].threads[j].replies.push(reply);
+             this.setState({boards: boards});
+             if(board == this.state.currentBoardName)
+               this.getCurrentBoard();
+             return;
+           }   
+         }
+      }
+    }
   }
   pushThread(board,thread,isNew)
   {
