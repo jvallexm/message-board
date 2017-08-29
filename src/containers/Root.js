@@ -291,7 +291,7 @@ const About = (props) =>{
            onClick={props.close}/>
       </div>  
       <div className="thread-head">
-        About This Projects
+        About This Project
       </div>  
       <div>
         FreeCodeCamp's curriculum will soon include an <strong className="pointer" onClick={()=>window.open("https://beta.freecodecamp.com/en/challenges/information-security-and-quality-assurance-projects/anonymous-message-board")}>Anonymous Message Board <i className="fa fa-external-link"/></strong>. You can use the API requests from the <strong className="pointer" onClick={()=>window.open('/forms')}>Forms Page <i className="fa fa-external-link"/></strong><br/>In addition to fulfilling all the requirements, it includes some new features:<br/>
