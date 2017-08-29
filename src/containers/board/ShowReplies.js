@@ -25,7 +25,7 @@ export default class ShowReplies extends React.Component{
               <div className="smol">
                 <span> <Flag post = {d} 
                              flag = {()=>this.props.flagPost(d, 1)}/> </span>
-                  {this.props.parseDate(d.posted_on)}                
+                  {this.props.parseDate(d.posted_on)} <span className="green">#{d._id}</span>                
                 <span className="red"
                       onClick={()=>this.props.deleteToggle(d)}> Delete</span>
                 <span className="blue"
@@ -52,7 +52,7 @@ export default class ShowReplies extends React.Component{
                           <div className="smol">
                             <span> <Flag post = {dd} 
                                          flag = {()=>this.props.flagPost(dd, 2)}/> </span>
-                              {this.props.parseDate(dd.posted_on)}  
+                              {this.props.parseDate(dd.posted_on)} <span className="green">#{dd._id}</span> 
                             <span className="red"
                                   onClick={()=>this.props.deleteToggle(dd)}> Delete</span>
                           </div>

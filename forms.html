@@ -187,12 +187,12 @@
           <button type = "submit" value = "submit" class = "width100">Submit</button>
         </form>  
         
-        <!--  Report Threads-->
+        <!--  Report Reply-->
         
           <form class="reply-form form" id="report-reply" name="PUT">
           <div class = "row">
             <div class = "col-sm-12 text-center">
-                <h4>Report a Thread</h4>  
+                <h4>Report a Reply</h4>  
             </div>
           </div>
           <div class = "row">
@@ -211,18 +211,27 @@
             </div>  
             <div class = "col-sm-9">
               <input name="thread_id" required=''
+                     class="width100" placeholder="Thread ID" type="text"/>
+            </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Reply ID: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="reply_id" required=''
                      class="width100" placeholder="Thread ID" type="text"/>
             </div>
           </div>
           <button type = "submit" value = "submit" class = "width100">Submit</button>
         </form>  
         
-        <!--Delete Threads-->
+        <!--Delete Replies-->
         
         <form class="reply-form form" id="delete-reply" name="DELETE">
           <div class = "row">
             <div class = "col-sm-12 text-center">
-                <h4>Delete a Thread</h4>  
+                <h4>Delete a Reply</h4>  
             </div>
           </div>
           <div class = "row">
@@ -243,6 +252,15 @@
               <input name="thread_id" required=''
                      class="width100" placeholder="Thread ID" type="text"/>
             </div>
+          </div>
+          <div class = "row">
+            <div class ="col-sm-3">
+              Reply ID: 
+            </div>  
+            <div class = "col-sm-9">
+              <input name="reply_id" required=''
+                     class="width100" placeholder="Thread ID" type="text"/>
+          </div>
           </div>
           <div class ="row">
             <div class ="col-sm-3">

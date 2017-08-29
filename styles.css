@@ -226,7 +226,6 @@ textarea
 .img-reg{
   min-width         : 200px;
   height            : 200px;
-  border-radius     : 10px;
   padding           : 5px;
   padding-left      : 0px !important;
   float             : left;
@@ -280,5 +279,11 @@ textarea
 .flag-this:hover{
   
   color             : #E63946;
+  
+}
+
+.green{
+  
+  color             : green;
   
 }

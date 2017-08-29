@@ -32,6 +32,20 @@ const Replies = {
          }     
       },
       
+    flagReply: (req,res,url,io)=>{
+        
+         console.log("attempting to flag reply " + req.body.reply_id + " to thread " + req.body.thread_id);
+         UpdateDb.flagReply(url,req.body,(thread,check)=>{
+             console.log("sending thread with flagged reply");
+             io.sockets.emit("send update",{
+                 board: req.body.board,
+                 thread: thread
+             });
+             if(check)
+                res.send({redirect: '/success'});
+         });
+    },  
+      
     pushReply: (req,res,url,io)=>{
         
         console.log("Atempting to post reply to thread " + req.body.thread_id);

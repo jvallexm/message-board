@@ -53,7 +53,6 @@ const UpdateDb =
                 var thisBoard = db.collection(board);
                 var newBoard = {
                     _id: board,
-                    name: "",
                     threads: []
                 };
                 if(board == "b")
@@ -135,6 +134,37 @@ const UpdateDb =
              updateOne(db,()=>{db.close();});
          }
       });   
+   },
+   
+   flagReply: (url,data,func,res)=>{
+      MongoClient.connect(url, (err,db)=>{
+         if(err)
+           console.log(err);
+         else
+         {
+             var findThis = db.collection(data.board);
+             var updateOne = () =>{
+                 findThis.findOne({_id: parseInt(data.thread_id)})
+                         .then((found)=>{
+                            let thread = found;
+                            for(let i=0;i<thread.replies.length;i++)
+                            {
+                                if(thread.replies[i]._id == parseInt(data.reply_id))
+                                {
+                                    thread.replies[i].flagged = true;
+                                    findThis.update({_id: parseInt(data.thread_id)} , thread);
+                                    func(thread,true);
+                                    return;
+                                }
+                            }
+                            func({},false);
+                            return;
+                         });
+                res.send({redirect: '/failure'});         
+             };
+             updateOne(db,()=>{db.close();});
+         }  
+      });     
    },
    
    deleteThread: (url, data, func)=>{

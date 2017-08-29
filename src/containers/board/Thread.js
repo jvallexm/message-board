@@ -179,7 +179,7 @@ export default class Thread extends React.Component{
              <div className="smol">
                <span> <Flag post  = {this.props.thread} 
                              flag = {()=>this.flagPost(this.props.thread, 0)}/> </span>
-                  {this.parseDate(this.props.thread.posted_on)}
+                  {this.parseDate(this.props.thread.posted_on)} <span className="green">#{this.props.thread._id}</span>
                <span className="red"
                      onClick={()=>this.props.deleteToggle(this.props.thread)}> Delete </span>
                <span className="blue"

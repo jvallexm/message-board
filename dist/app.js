@@ -17327,6 +17327,13 @@ var ShowReplies = function (_React$Component) {
                 ' '
               ),
               _this2.props.parseDate(d.posted_on),
+              ' ',
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'green' },
+                '#',
+                d._id
+              ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'span',
                 { className: 'red',
@@ -17377,6 +17384,13 @@ var ShowReplies = function (_React$Component) {
                     ' '
                   ),
                   _this2.props.parseDate(dd.posted_on),
+                  ' ',
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    { className: 'green' },
+                    '#',
+                    dd._id
+                  ),
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     { className: 'red',
@@ -17647,6 +17661,13 @@ var Thread = function (_React$Component) {
                 ' '
               ),
               this.parseDate(this.props.thread.posted_on),
+              ' ',
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { className: 'green' },
+                '#',
+                this.props.thread._id
+              ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'span',
                 { className: 'red',
