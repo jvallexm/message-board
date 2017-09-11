@@ -62,8 +62,9 @@ module.exports = {
             newThread.name = newThread.thread_name;
          console.log(newThread);
          console.log("Thread POST request to " + req.params.board);
-         UpdateDb.pushThread(url,{board: newThread.board,thread: newThread},()=>{
-             io.sockets.emit("send thread", newThread);
+         UpdateDb.pushThread(url,{board: newThread.board,thread: newThread},(thread)=>{
+             io.sockets.emit("send thread", {thread: newThread,
+                                             board:  newThread.board});
          });
          
          
@@ -75,7 +76,8 @@ module.exports = {
          UpdateDb.deleteThread(url,req.body,(check)=>{
              if(check)
              {
-                 io.sockets.emit("send pop", {board: req.body.board, thread: {_id: parseInt(req.body._id)}});
+                 io.sockets.emit("send pop", {board: req.body.board, thread: {_id: parseInt(req.body.thread_id)}});
+                 io.sockets.emit("console log", {log: "test"});
                  res.send({redirect: '/success'});
              }     
              else

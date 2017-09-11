@@ -58,6 +58,7 @@ export default class App extends React.Component{
     });
     
     socket.on("send pop",(data)=>{
+      console.log("incoming data " + JSON.stringify(data));
       this.popThread(data.board,data.thread,false);
     });
     
@@ -66,7 +67,7 @@ export default class App extends React.Component{
     });
     
     socket.on("send reply",(data)=>{
-      this.pushReply(data.board,data.thread,data.reply);
+       this.pushReply(data.board,data.thread,data.reply);
     });
     
     socket.on("console log",(data)=>{
@@ -150,7 +151,7 @@ export default class App extends React.Component{
   pushReply(board,thread,reply)
   {
     let boards = this.state.boards;
-    console.log("pushing a reply to" + board);
+    console.log("pushing a reply to " + board);
     for(let i=0;i<boards.length;i++)
     {
       if(boards[i]._id == board)

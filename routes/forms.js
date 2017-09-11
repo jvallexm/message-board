@@ -19,6 +19,7 @@ $( ".form" ).submit((e)=>{
   $.each(arr,(i,input)=>{
      obj[input.name] = input.value;
   });
+  obj.replies = [];
   //setTimeout(()=>{
    
     $.ajax({

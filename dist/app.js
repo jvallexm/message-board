@@ -18444,6 +18444,7 @@ var App = function (_React$Component) {
       });
 
       socket.on("send pop", function (data) {
+        console.log("incoming data " + JSON.stringify(data));
         _this2.popThread(data.board, data.thread, false);
       });
 
@@ -18525,7 +18526,7 @@ var App = function (_React$Component) {
     key: 'pushReply',
     value: function pushReply(board, thread, reply) {
       var boards = this.state.boards;
-      console.log("pushing a reply to" + board);
+      console.log("pushing a reply to " + board);
       for (var i = 0; i < boards.length; i++) {
         if (boards[i]._id == board) {
           for (var j = 0; j < boards[i].threads.length; j++) {
