@@ -111,7 +111,7 @@ export default class App extends React.Component{
       if(this.state.boards[i]._id == whichBoard)
       {
         let currentBoard = this.state.boards[i];
-        console.log(currentBoard.threads);
+        //console.log(currentBoard.threads);
         this.setState({currentBoard: currentBoard});
         return;
       }  

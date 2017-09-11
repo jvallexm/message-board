@@ -207,18 +207,19 @@ const UpdateDb =
                  console.log("updating post from database");
                  let now =  Math.round((new Date()).getTime() / 1000);
                  console.log("the time is " + now);
-                 updateThis.update({_id: parseInt(data.thread_id)},{
-                     $set  : {bumped_on: now},
-                     $push : {replies: {
+                 var newReply = {
                          _id             : now,
                          flagged         : false,
                          replies         : [],
                          text            : data.text,
                          delete_password : data.delete_password,
                          posted_on       : now
-                     }}
+                     };
+                 updateThis.update({_id: parseInt(data.thread_id)},{
+                     $set  : {bumped_on: now},
+                     $push : {replies: newReply}
                  });
-                 func();
+                 func(newReply);
              };
              updateOne(db,()=>{db.close();});
          }

@@ -49,12 +49,12 @@ const Replies = {
     pushReply: (req,res,url,io)=>{
         
         console.log("Atempting to post reply to thread " + req.body.thread_id);
-         UpdateDb.pushReply(url,req.body,()=>{
+         UpdateDb.pushReply(url,req.body,(reply)=>{
             console.log("reply posted!");
             io.sockets.emit("send reply",{
                board  : req.params.board,
-               thread : req.body.thread_id,
-               reply  : req.body
+               thread : parseInt(req.body.thread_id),
+               reply  : reply
             });
             res.send({redirect: "/board/" + req.params.board});
          });

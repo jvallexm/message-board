@@ -18490,7 +18490,7 @@ var App = function (_React$Component) {
       for (var i = 0; i < this.state.boards.length; i++) {
         if (this.state.boards[i]._id == whichBoard) {
           var currentBoard = this.state.boards[i];
-          console.log(currentBoard.threads);
+          //console.log(currentBoard.threads);
           this.setState({ currentBoard: currentBoard });
           return;
         }
