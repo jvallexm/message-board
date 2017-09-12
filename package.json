@@ -20,7 +20,7 @@
     "babel-loader": "https://registry.npmjs.org/babel-loader/-/babel-loader-6.3.2.tgz",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
-    "express": "https://registry.npmjs.org/express/-/express-4.14.1.tgz"
+    "express": "https://registry.npmjs.org/express/-/express-4.14.1.tgz",
     "helmet": "^3.8.1",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.31",
