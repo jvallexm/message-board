@@ -1,5 +1,5 @@
 {
-  "name": "jennifer-valle-dot-com",
+  "name": "jennifer-valle-message-board",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,8 +20,7 @@
     "babel-loader": "https://registry.npmjs.org/babel-loader/-/babel-loader-6.3.2.tgz",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
-    "express": "https://registry.npmjs.org/express/-/express-4.14.1.tgz",
-    "gmail-send": "^1.2.11",
+    "express": "https://registry.npmjs.org/express/-/express-4.14.1.tgz"
     "helmet": "^3.8.1",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.31",
@@ -32,8 +31,7 @@
     "react-router-dom": "^4.2.2",
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3",
-    "webpack": "https://registry.npmjs.org/webpack/-/webpack-2.2.1.tgz",
-    "xoauth2": "^1.2.0"
+    "webpack": "https://registry.npmjs.org/webpack/-/webpack-2.2.1.tgz"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
